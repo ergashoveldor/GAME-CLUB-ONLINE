@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameClub - Play Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Game<span class="highlight">Club</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="./new.html">New</a>
+            <a href="/hot">Hot</a>
+            <a href="/best">Best</a>
+            <a href="/exclusive">Exclusive</a>
+            <a href="/sprunki">Sprunki</a>
+            <a href="/featured">Featured</a>
+            <a href="/played">Played</a>
+            <a href="/tags">Tags</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="game-page-container">
+        <div class="game-sidebar">
+            <!-- Related games will be dynamically inserted here -->
+        </div>
+        <div class="game-content">
+            <iframe id="game-frame" width="890" height="614" frameborder="0" allowfullscreen></iframe>
+            <h1 id="game-title" class="game-title"></h1>
+        </div>
+    </div>
+
+    <script>
+        // Function to get game slug from URL
+        function getGameSlug() {
+            const path = window.location.pathname;
+            const matches = path.match(/\/game\/(.*)/);
+            return matches ? matches[1] : null;
+        }
+
+        // Function to load game
+        function loadGame() {
+            const gameSlug = getGameSlug();
+            if (!gameSlug) return;
+
+            // Map of game slugs to their GameDistribution URLs
+            const gameUrls = {
+                'hazmob-fps': 'https://html5.gamedistribution.com/623baec23d504c83acab0b5250859ba8/',
+                'ultimate-transport': 'https://html5.gamedistribution.com/99cf2c7b72fa4151a25ab371d826e4d8/',
+                'plant-girl-defense-zombie': 'https://html5.gamedistribution.com/a3792900a21b48ddb546554a25057e31/',
+                'crazy-van': 'https://html5.gamedistribution.com/180ff7e091954817afeeebd7d2324a75/',
+                'police-station': 'https://html5.gamedistribution.com/d02d956b0aab4b8e918426e7d44a07f9/',
+                'turbo-race': 'https://html5.gamedistribution.com/6b93a7631e0d41d59cd4d661b46ccf90/',
+                'army-truck': 'https://html5.gamedistribution.com/fc26be55f6e441988fe29e88ee67215a/',
+                'hero-fight-clash': 'https://html5.gamedistribution.com/b60e3a97ac674e939f2ad04e3a590714/',
+                'zombie-defense-war': 'https://html5.gamedistribution.com/c1951802cb1a439b998c1fa4bbfc4174/',
+                'geometry-rush-4d': 'https://html5.gamedistribution.com/563a3f252c6e4ef8a7fa4a59b9f47c5c/',
+                'crazy-plane-landing': 'https://html5.gamedistribution.com/fd8ad948b534420caced19c62764019f/',
+                'stunt-multiplayer-arena': 'https://html5.gamedistribution.com/6552bf3254b441c1baf6b4727006bd28/',
+                'my-city-hospital':  'https://html5.gamedistribution.com/865df4675faf4ff1973283a624842c06/',
+                'swat-plants-zombies': 'https://html5.gamedistribution.com/293a9af090ff4a958459f30a4c428967/',
+                'zombie-royale-io': 'https://html5.gamedistribution.com/0ff430a7db394a58a3cae92dd5028942/',
+                'ufo-attack': 'https://html5.gamedistribution.com/a649a6a4ee22489f99a0124a8ffc3310/',
+                'ultimate-sports-car-drift': 'https://html5.gamedistribution.com/92ed22538eaa47fe85a830a78d6b752f/', 
+                'football-penalty': 'https://html5.gamedistribution.com/14b5bd0218824dd3965eed3b186d936f/',
+                'tanks-merge-tank-war-blitz': 'https://html5.gamedistribution.com/76902964b0a84963ac23ae3ad750e8bb/',
+                'mega-ramps-ultimate-car-races': 'https://html5.gamedistribution.com/7e0d4ac309994e2b9be602835c88b0c2/',
+                'wild-tanks': 'https://html5.gamedistribution.com/d11e91e2b6d340dc8c49a189c014aa8c/',
+                'find-the-missing-part': 'https://html5.gamedistribution.com/963ad68c0bac41ba9a540994d2954d93/',
+                'dog-life-simulator': 'https://html5.gamedistribution.com/3f9e0bc89aee49e48469daba1a23a10d/',
+                'color-sort-puzzle': 'https://html5.gamedistribution.com/26b3b48bea8e46f2b7123f0742a7164f/',
+                'jelly-block-puzzle': 'https://html5.gamedistribution.com/afffb7c450904a1494758f5508f7b000/',
+                'gun-clone': 'https://html5.gamedistribution.com/bb3dbe0a9c214bac87ea41f7d91d4e15/',
+                'asmr-beauty-homeless' : 'https://html5.gamedistribution.com/022eb87c822442cd99965c45858e0c65/',
+                'run-3d' : 'https://html5.gamedistribution.com/e103db40071a4af38aab2061bf799455/',
+                'my-fire-station-world' : 'https://html5.gamedistribution.com/91b698f230fe4b17b7f038a9490e6f67/',
+                'king-of-crabs' : 'https://html5.gamedistribution.com/e6cd7779e6df40508b408ef442c0706f/',
+                'space-shooter-speed-typing-challenge': 'https://html5.gamedistribution.com/0e860e3416b142758d2e2aa5bedab4fb/',
+                'exit-puzzle' : 'https://html5.gamedistribution.com/6583b3aeb8674d54b9b9ab4cf94e2567/',
+                'color-rings-block-puzzle' : 'https://html5.gamedistribution.com/35082481c2cd4939b524fbdfd19c3ec6/',
+                'stickman-fight-pro' : 'https://html5.gamedistribution.com/2b7147899bf8470fbe68c815c981d220/',
+                'crazy-hill-climbing' : 'https://html5.gamedistribution.com/822814385dfb43bfbaec28e839dedeb7/',
+                'little-commander-red-blue' : 'https://html5.gamedistribution.com/9b704c9b67fe4fbf99623680f899780e/',
+                'ball-dunk-fall' : 'https://html5.gamedistribution.com/1f6162f5ac0541cca72f77a833acde86/',
+                'cosmo-puzzle' : 'https://html5.gamedistribution.com/95c294b7d2ba48f380e96c6c77478fb0/',
+                'pursuit-rampage' : 'https://html5.gamedistribution.com/17dd3831198c42d29feb07c6313d3838/',
+                'geometry-arrow' : 'https://html5.gamedistribution.com/9ee26ba4405c456094c70af7dc31a524/',
+                'stick-boy-bazooka-ragdoll' : 'https://html5.gamedistribution.com/0c93ae8fb4eb4604b6e3d0d5ea5eb449/',
+                'cars-merge' : 'https://html5.gamedistribution.com/6124b63ea76a4c7bb77c2fa500286b5f/',
+                'wild-hunting-clash' : 'https://html5.gamedistribution.com/0143ede05b904e3db4add3645b0ef415/',
+                'space-survivor' : 'https://html5.gamedistribution.com/da9fbff0f8534c15b27dd7174a3e284f/',
+                'my-hospital-learn-care' : 'https://html5.gamedistribution.com/33347defdabc4460ae5a4f22663af813/',
+                'crazy-bunnies' : 'https://html5.gamedistribution.com/4a73cd3206ca46f58f28895377ff6624/',
+                'fashion-princess-dress-up' : 'https://html5.gamedistribution.com/fc419fe8405640cbb7759e9af92aef23/',
+                'tank-sniper-3d' : 'https://html5.gamedistribution.com/9c327672a2da42408f4602a2c1981100/',
+                'crazy-axe' : 'https://html5.gamedistribution.com/e594452e69744919ab3bc18c666dc762/',
+                'juicy-match' : 'https://html5.gamedistribution.com/0d95d64a4b8e440981a7b067c483cdf2/',
+                'sportsball-merge' : 'https://html5.gamedistribution.com/757f448d32704d56a40351d3439727b0/',
+                'us-army-car-games-truck-driving' : 'https://html5.gamedistribution.com/22c2864d0e2f48dd95be3e36b43429d9/',
+                'kick-the-noobik-3d' : 'https://html5.gamedistribution.com/e06e45bf9c844821b4d7424482cd749c/',
+                'gun-evolution' : 'https://html5.gamedistribution.com/8d125aecd58f4645bffda294deca7061/',
+                'draw-and-escape' : 'https://html5.gamedistribution.com/478f36658478422c84021b62054466da/',
+                'triangle-way' : 'https://html5.gamedistribution.com/8a173da3b84842358044c63452fea873/',
+                'teardown-destruction-sandbox' : 'https://html5.gamedistribution.com/ac1cfe86f86a41ac8a6183a63ab98d27/',
+                'walkers-attack' : 'https://html5.gamedistribution.com/49eaf121f8834efc907844b130481f98/',
+                'chicken-strike' : 'https://html5.gamedistribution.com/3e008586440b457c8f107b367f544af0/',
+                'slenderman-back-to-school' : 'https://html5.gamedistribution.com/b88660579d4e4a16b520d9e91c7a782c/',
+                'car-park-simulator' : 'https://html5.gamedistribution.com/cc327e0a9ddb404f85b2e7940c974c98/',
+                'sandwich-runner' : 'https://html5.gamedistribution.com/b410ed46c5eb4bd2a000bb11a7511ff6/',
+                'turbo-race' : 'https://html5.gamedistribution.com/003cf1f776e54eb9a0457cccc3446829/',
+                'hardventure' : 'https://html5.gamedistribution.com/61dc16880f0e47da809c5891a2457dea/',
+                'mask-evolution-3d' : 'https://html5.gamedistribution.com/37c9de592bf243928ea0a8611857afd3/',
+                'mad-truck' : 'https://html5.gamedistribution.com/805aab2a751b418d8fbcc319044413f1/',
+                'zombie-outbreak-survive' : 'https://html5.gamedistribution.com/6d6b3cb66450477a9b2d6df2f7372635/',
+                'car-fighter' : 'https://html5.gamedistribution.com/11333ba11ba249e49ae928ecab3a0b6d/',
+                'basket-shot' : 'https://html5.gamedistribution.com/17d229e26e5f485ba9a4ab11a87942bb/',
+                'stickman-zombies-epic-fight' : 'https://html5.gamedistribution.com/d94dfa9994034546a88f260d7dee078f/',
+                'block-craft-3d' : 'https://html5.gamedistribution.com/dea0d13d63fb4eb1b8c1b8971fe75635/',
+                'basket-sport-stars' : 'https://html5.gamedistribution.com/c2da2942e72f47fc815b4b7cd45fc3d8/',
+                'tower-crash-3d' : 'https://html5.gamedistribution.com/b375b05ea29b40abaaf3606a2ff215ad/',
+                'spaceflight-simulator' : 'https://html5.gamedistribution.com/59e9362f0f9f4bb4b94ab698bf0a557a/',
+                'archery-ragdoll' : 'https://html5.gamedistribution.com/1ebba0a58564412f9a6be21511f86b48/',
+                'super-sprunki-clicker' : 'https://html5.gamedistribution.com/8917279504de4de3b2153bcf70ee4f8a/',
+                'connect-2-cars' : 'https://html5.gamedistribution.com/79cbc1764ef943c2b6a119a82d0ded0f/',
+                'real-racing-3d' : 'https://html5.gamedistribution.com/23ef273b2cbf439897d1f1da7fe5fc80/',
+                'mini-shooters' : 'https://html5.gamedistribution.com/4237b433eb5c4698a31e0cd0203fbbfa/',
+                'block-mine-fuse-tnt' : 'https://html5.gamedistribution.com/5a67624d5d3d4e409f187d11f910e5fb/',
+            };
+
+            const gameUrl = gameUrls[gameSlug];
+            if (gameUrl) {
+                document.getElementById('game-frame').src = gameUrl;
+                document.getElementById('game-title').textContent = gameSlug.split('-').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
+            }
+        }
+
+        // Load related games
+        function loadRelatedGames() {
+            const sidebar = document.querySelector('.game-sidebar');
+            const gameList = Object.entries(gameUrls).sort(() => Math.random() - 0.5).slice(0, 5);
+            
+            sidebar.innerHTML = gameList.map(([slug, url]) => `
+                <div class="game-card sidebar-card">
+                    <a href="/game/${slug}">
+                        <img src="https://img.gamedistribution.com/${url.split('/')[4].replace('/', '')}-512x512.jpeg" 
+                             alt="${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}">
+                        <h3>${slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h3>
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadGame();
+            loadRelatedGames();
+        });
+    </script>
+</body>
+</html>

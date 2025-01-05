@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameClub - Play Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a3a;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .game-page-wrapper {
+            padding: 20px;
+        }
+        .game-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .game-sidebar {
+            width: 120px;
+        }
+        .game-frame {
+            width: 890px;
+            height: 614px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: #000;
+            position: relative;
+        }
+        .game-control-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 890px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .game-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .control-icons {
+            display: flex;
+            gap: 20px;
+        }
+        .control-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            color: #1a1a3a;
+            transform: scale(1.1);
+        }
+        .control-btn i {
+            font-size: 20px;
+        }
+        .like-btn.active {
+            color: #4CAF50;
+        }
+        .dislike-btn.active {
+            color: #f44336;
+        }
+        .sidebar-card {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .sidebar-card:hover {
+            border-color: #ffdd00;
+            box-shadow: 0 0 15px rgba(255, 221, 0, 0.5);
+        }
+        .sidebar-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-card:hover img {
+            transform: scale(1.1);
+        }
+        .sidebar-card h3 {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            margin: 0;
+            padding: 5px;
+            font-size: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .sidebar-card:hover h3 {
+            bottom: 0;
+            background-color: rgba(255, 221, 0, 0.9);
+            color: #333;
+        }
+        .game-frame-wrapper {
+            position: relative;
+            width: 890px;
+        }
+        .ad-space {
+            width: 570px;
+            height: 90px;
+            background-color: white;
+            margin-top: 10px;
+        }
+        .similar-games {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .similar-games-title {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .similar-games-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 130.75px);
+            grid-template-rows: repeat(3, 130.75px);
+            gap: 15px;
+            width: fit-content;
+        }
+
+        .similar-game-card {
+            width: 130.75px;
+            height: 130.75px;
+            background: #2a2a4a;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .similar-game-card:hover {
+            border-color: #ffdd00;
+            box-shadow: 0 0 15px rgba(255, 221, 0, 0.5);
+        }
+
+        .similar-game-card a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            height: 100%;
+            position: relative;
+        }
+
+        .similar-game-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .similar-game-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .similar-game-card h3 {
+            position: absolute;
+            width: 100%;
+            padding: 0.4rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            bottom: -100%;
+            left: 0;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .similar-game-card:hover h3 {
+            bottom: 0;
+        }
+
+        .random-game-button {
+            display: flex;
+            justify-content: center;
+            width: calc(8 * 130.75px + 7 * 15px);
+            margin: 20px auto;
+            margin-left: 20px;
+        }
+
+        .random-game-button button {
+            border: none;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            border-radius: 25px;
+            cursor: pointer;
+            padding: 12px 30px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .random-game-button button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .random-game-button i {
+            font-size: 20px;
+        }
+
+        .game-categories {
+            background-color: #1a1a3a;
+            margin-top: 40px;
+        }
+
+        .game-categories h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+            width: calc(8 * 130.75px + 7 * 15px);
+            margin-left: 20px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            width: calc(8 * 130.75px + 7 * 15px);
+            margin-left: 20px;
+        }
+
+        .category-card {
+            display: flex;
+            align-items: center;
+            background: #2a2a4a;
+            border-radius: 12px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .category-card span {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Game<span class="highlight">Club</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="./new.html">New</a>
+            <a href="/hot">Hot</a>
+            <a href="/best">Best</a>
+            <a href="/exclusive">Exclusive</a>
+            <a href="/sprunki">Sprunki</a>
+            <a href="/featured">Featured</a>
+            <a href="/played">Played</a>
+            <a href="/tags">Tags</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="game-page-wrapper">
+        <div class="game-container">
+            <div class="game-sidebar">
+                <!-- Related games will be inserted here -->
+            </div>
+            <div class="game-frame-wrapper">
+                <iframe id="gameFrame" class="game-frame" allowfullscreen></iframe>
+                <div class="game-control-panel">
+                    <div class="game-title">Super Dog Hero Dash</div>
+                    <div class="control-icons">
+                        <button class="control-btn like-btn" title="Like">
+                            <i class="fas fa-thumbs-up"></i>
+                        </button>
+                        <button class="control-btn dislike-btn" title="Dislike">
+                            <i class="fas fa-thumbs-down"></i>
+                        </button>
+                        <button class="control-btn download-btn" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="control-btn refresh-btn" title="Refresh">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button class="control-btn fullscreen-btn" title="Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button class="control-btn random-game-btn" title="Random Game">
+                            <i class="fas fa-random"></i>
+                        </button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div style="width: 600px; height: 90px; background-color: white; margin: auto;"></div>
+    </div>
+
+    <div class="similar-games">
+        <h2 class="similar-games-title">Similar Games</h2>
+        <div class="similar-games-grid">
+        </div>
+        <div class="random-game-button">
+            <button onclick="playRandomGame()">
+                <i class="fas fa-dice"></i>
+                PLAY A RANDOM GAME
+            </button>
+        </div>
+    </div>
+
+    <div class="game-categories">
+        <h2>Game Categories</h2>
+        <div class="categories-grid">
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/html5.png" alt="HTML5">
+                <span>HTML5 Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/driving.png" alt="Driving">
+                <span>Driving Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/kids.png" alt="Kids">
+                <span>Kids Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/car.png" alt="Car">
+                <span>Car Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/online.png" alt="Online">
+                <span>Online Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/time.png" alt="Time Killing">
+                <span>Time Killing Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/3d.png" alt="3D">
+                <span>3D Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/exclusive.png" alt="Exclusive">
+                <span>Exclusive Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/simulation.png" alt="Simulation">
+                <span>Simulation Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/parking.png" alt="Parking">
+                <span>Parking Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/boy.png" alt="Boy">
+                <span>Boy Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/casual.png" alt="Casual">
+                <span>Casual Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/balloon.png" alt="Balloon">
+                <span>Balloon Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/featured.png" alt="Featured">
+                <span>Featured Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/basketball.png" alt="Basketball">
+                <span>Basketball Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/barbie.png" alt="Barbie">
+                <span>Barbie Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/anime.png" alt="Anime">
+                <span>Anime Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/babysitter.png" alt="Babysitter">
+                <span>Babysitter Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/archery.png" alt="Archery">
+                <span>Archery Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/baby-taylor.png" alt="Baby Taylor">
+                <span>Baby Taylor Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/art.png" alt="Art">
+                <span>Art Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/baby.png" alt="Baby">
+                <span>Baby Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/badminton.png" alt="Badminton">
+                <span>Badminton Games</span>
+            </a>
+            <a href="#" class="category-card">
+                <img src="https://img.gamedistribution.com/categories/random.png" alt="Random">
+                <span>Random Game</span>
+            </a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Home</a> - 
+            <a href="#">Contact Us</a> - 
+            <a href="#">TOS</a> - 
+            <a href="#">Privacy</a>
+            <span class="copyright"> FreeGames.Com</span>
+        </div>
+    </footer>
+
+    <script>
+        const games = [
+            // {
+                
+            // },
+            {
+                id: '37c9de592bf243928ea0a8611857afd3',
+                name: 'Mask Evolution 3d'
+            },
+            {
+                id: '805aab2a751b418d8fbcc319044413f1',
+                name: 'Mad Truck'
+            },
+            {
+                id: '6d6b3cb66450477a9b2d6df2f7372635',
+                name: 'Zombie Outbreak Survive'
+            },
+            {
+                id: '11333ba11ba249e49ae928ecab3a0b6d',
+                name: 'Car Fighter'
+            },
+            {
+                id: '17d229e26e5f485ba9a4ab11a87942bb',
+                name: 'Basket Shot'
+            },
+            {
+                id: 'd94dfa9994034546a88f260d7dee078f',
+                name: 'Stickman vs Zombies: Epic Fight'
+            },
+            {
+                id: 'dea0d13d63fb4eb1b8c1b8971fe75635',
+                name: 'Block Craft 3d'
+            },
+            {
+                id: 'c2da2942e72f47fc815b4b7cd45fc3d8',
+                name: 'Basket Sport Stars'
+            },
+            {
+                id: 'b375b05ea29b40abaaf3606a2ff215ad',
+                name: 'Tower Crash 3D'
+            },
+            {
+                id: '59e9362f0f9f4bb4b94ab698bf0a557a',
+                name: 'Spaceflight Simulator'
+            },
+            {
+                id: '1ebba0a58564412f9a6be21511f86b48',
+                name: 'Archery Ragdoll'
+            },
+            {
+                id: '8917279504de4de3b2153bcf70ee4f8a',
+                name: 'Super Sprunki Clicker'
+            },
+            {
+                id: '79cbc1764ef943c2b6a119a82d0ded0f',
+                name: 'Connect 2 Cars'
+            },
+            {
+                id: '23ef273b2cbf439897d1f1da7fe5fc80',
+                name: 'Real Racing 3D'
+            },
+            {
+                id: '4237b433eb5c4698a31e0cd0203fbbfa',
+                name: 'Mini Shooters'
+            },
+            {
+                id: '5a67624d5d3d4e409f187d11f910e5fb',
+                name: 'Block Mine Fuse TNT'
+            },
+            {
+                id: '61dc16880f0e47da809c5891a2457dea',
+                name: 'Hardventure'
+            },
+            {
+                id: '003cf1f776e54eb9a0457cccc3446829',
+                name: 'Turbo Race'
+            },
+            {
+                id: 'b410ed46c5eb4bd2a000bb11a7511ff6',
+                name: 'Sandwich Runner'
+            },
+            {
+                id: 'cc327e0a9ddb404f85b2e7940c974c98',
+                name: 'Car Park Simulator'
+            },
+            {
+                id: 'b88660579d4e4a16b520d9e91c7a782c',
+                name: 'Slenderman Back to School'
+            },
+            {
+                id: '3e008586440b457c8f107b367f544af0',
+                name: 'Chicken Strike'
+            },
+            {
+                id: '49eaf121f8834efc907844b130481f98',
+                name: 'Walkers Attack'
+            },
+            {
+                id: 'ac1cfe86f86a41ac8a6183a63ab98d27',
+                name: 'TearDown - Destruction SandBox'
+            },
+            {
+                id: '8a173da3b84842358044c63452fea873',
+                name: 'Triangle Way'
+            },
+            {
+                id: '478f36658478422c84021b62054466da',
+                name: 'Draw And Escape'
+            },
+            {
+                id: '8d125aecd58f4645bffda294deca7061',
+                name: 'Gun Evolution'
+            },
+            {
+                id: 'e06e45bf9c844821b4d7424482cd749c',
+                name: 'Kick the Noobik 3D'
+            },
+            {
+                id: '22c2864d0e2f48dd95be3e36b43429d9',
+                name: 'Us Army Car Games Truck Driving'
+            },
+            {
+                id: '757f448d32704d56a40351d3439727b0',
+                name: 'Sportsball Merge'
+            },
+            {
+                id: '0d95d64a4b8e440981a7b067c483cdf2',
+                name: 'Juicy Match'
+            },
+            {
+                id: 'e594452e69744919ab3bc18c666dc762',
+                name: 'Crazy Axe'
+            },
+            {
+                id: '9c327672a2da42408f4602a2c1981100',
+                name: 'Tank Sniper 3D'
+            },
+            {
+                id: 'fc419fe8405640cbb7759e9af92aef23',
+                name: 'Fashion Princess Dress Up'
+            },
+            {
+                id: '4a73cd3206ca46f58f28895377ff6624',
+                name: 'Crazy Bunnies'
+            },
+            {
+                id: '33347defdabc4460ae5a4f22663af813',
+                name: 'My Hospital Learn Care'
+            },
+            {
+                id: 'da9fbff0f8534c15b27dd7174a3e284f',
+                name: 'Space Survivor'
+            },
+            {
+                id: '0143ede05b904e3db4add3645b0ef415',
+                name: 'Wild Hunting Clash'
+            },
+            {
+                id: '6124b63ea76a4c7bb77c2fa500286b5f',
+                name: 'Cars Merge'
+            },
+            {
+                id: '0c93ae8fb4eb4604b6e3d0d5ea5eb449',
+                name: 'Stick Boy: Bazooka Ragdoll'
+            },
+            {
+                id: '9ee26ba4405c456094c70af7dc31a524',
+                name: 'Geometry Arrow'
+            },
+            {
+                id: '17dd3831198c42d29feb07c6313d3838',
+                name: 'Pursuit Rampage'
+            },
+            {
+                id: '95c294b7d2ba48f380e96c6c77478fb0',
+                name: 'Cosmo Puzzle' 
+            },
+            {
+                id: '1f6162f5ac0541cca72f77a833acde86',
+                name: 'Ball Dunk Fall'  
+            },
+            {
+                id: '9b704c9b67fe4fbf99623680f899780e',
+                name: 'Little Commander. Red vs Blue'
+            },
+            {
+                id: '822814385dfb43bfbaec28e839dedeb7',
+                name: 'Crazy Hill Climbing'
+            },
+            {
+                id: '2b7147899bf8470fbe68c815c981d220',
+                name: 'Stickman Fight Pro'
+            },
+            {
+                id: '35082481c2cd4939b524fbdfd19c3ec6',
+                name: 'Color Rings Block Puzzle'  
+            },
+            {
+                id: 'afffb7c450904a1494758f5508f7b000',
+                name: 'Jelly Block Puzzle' 
+            },
+            {
+                id: 'bb3dbe0a9c214bac87ea41f7d91d4e15',
+                name: 'Gun Clone'
+            },
+            {
+                id: '022eb87c822442cd99965c45858e0c65',
+                name: 'ASMR Beauty Homeless'
+            },
+            {
+                id: 'e103db40071a4af38aab2061bf799455',
+                name: 'Run 3D'
+            },
+            {
+                id: '91b698f230fe4b17b7f038a9490e6f67',
+                name: 'My Fire Station World'
+            },
+            {
+                id: 'e6cd7779e6df40508b408ef442c0706f',
+                name: 'King of Crabs'
+            },
+            {
+                id: '0e860e3416b142758d2e2aa5bedab4fb',
+                name: 'Space Shooter - Speed Typing Challenge'
+            },
+            {
+                id: '6583b3aeb8674d54b9b9ab4cf94e2567',
+                name: 'Exit - Puzzle'
+            },
+            {
+                id: '92ed22538eaa47fe85a830a78d6b752f',
+                name: 'Ultimate Sports Car Drift'  
+            },
+            {
+                id: '14b5bd0218824dd3965eed3b186d936f',
+                name: 'Football Penalty'  
+            },
+            {
+                id: '76902964b0a84963ac23ae3ad750e8bb',
+                name: 'Tanks Merge: Tank War Blitz'
+            },
+            {
+                id: '7e0d4ac309994e2b9be602835c88b0c2',
+                name: 'Mega Ramps Ultimate Car Races'  
+            },
+            {
+                id: 'd11e91e2b6d340dc8c49a189c014aa8c',
+                name: 'Wild Tanks'  
+            },
+            {
+                id: '963ad68c0bac41ba9a540994d2954d93',
+                name: 'Find The Missing Part'
+            },
+            {
+                id: '3f9e0bc89aee49e48469daba1a23a10d',
+                name: 'Dog Life Simulator'
+            },
+            {
+                id: '26b3b48bea8e46f2b7123f0742a7164f',
+                name: 'Color Sort Puzzle' 
+            },
+            {
+                id: 'a649a6a4ee22489f99a0124a8ffc3310',
+                name: 'UFO Attack'
+            },
+            {
+                id: '0ff430a7db394a58a3cae92dd5028942',
+                name: 'Zombie Royale Io'
+            },
+            {
+                id: '293a9af090ff4a958459f30a4c428967',
+                name: 'SWAT & Plants vs Zombies'
+            },
+            {
+                id: '865df4675faf4ff1973283a624842c06',
+                name: 'My City Hospital'
+            },
+            {
+                id: '6552bf3254b441c1baf6b4727006bd28',
+                name: 'Stunt Multiplayer Arena'
+            },
+            {
+                id: 'fd8ad948b534420caced19c62764019f',
+                name: 'Crazy Plane Landing'
+            },
+            {
+                id: '563a3f252c6e4ef8a7fa4a59b9f47c5c',
+                name: 'Geometry Rush 4D'
+            },
+            {
+                id: 'c1951802cb1a439b998c1fa4bbfc4174',
+                name: 'Zombie Defense: War'
+            },
+            {
+                id: '623baec23d504c83acab0b5250859ba8',
+                name: 'Hazmob FPS'
+            },
+            {
+                id: '99cf2c7b72fa4151a25ab371d826e4d8',
+                name: 'Ultimate Transport Driving Sim'
+            },
+            {
+                id: 'a3792900a21b48ddb546554a25057e31',
+                name: 'Plant Girl Defense Zombie'
+            },
+            {
+                id: '180ff7e091954817afeeebd7d2324a75',
+                name: 'Crazy Van'
+            },
+            {
+                id: 'd02d956b0aab4b8e918426e7d44a07f9',
+                name: 'Police Station'
+            },
+            {
+                id: '6b93a7631e0d41d59cd4d661b46ccf90',
+                name: 'Turbo Race 3D'
+            },
+            {
+                id: 'fc26be55f6e441988fe29e88ee67215a',
+                name: 'Army Truck Driver Online'
+            },
+            {
+                id: 'b60e3a97ac674e939f2ad04e3a590714',
+                name: 'Hero Fight Clash'
+            }
+        ];
+
+        // Get game data from localStorage
+        const currentGame = JSON.parse(localStorage.getItem('currentGame'));
+        
+        if (currentGame) {
+            document.title = `${currentGame.name} - GameClub`;
+            document.querySelector('.game-title').textContent = currentGame.name;
+            document.getElementById('gameFrame').src = currentGame.url;
+        }
+
+        // Load random related games
+        const sidebar = document.querySelector('.game-sidebar');
+        const relatedGames = games
+            .filter(game => !currentGame || game.name !== currentGame.name)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 5);
+
+        relatedGames.forEach(game => {
+            const card = document.createElement('a');
+            card.href = "#";
+            card.className = 'sidebar-card';
+            card.innerHTML = `
+                <img src="https://img.gamedistribution.com/${game.id}-512x512.jpg" alt="${game.name}">
+                <h3>${game.name}</h3>
+            `;
+            
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.setItem('currentGame', JSON.stringify({
+                    name: game.name,
+                    url: `https://html5.gamedistribution.com/${game.id}/`
+                }));
+                window.location.reload();
+            });
+            
+            sidebar.appendChild(card);
+        });
+
+        // Random game functionality
+        const randomGameBtn = document.querySelector('.random-game-btn');
+        if (randomGameBtn) {
+            randomGameBtn.addEventListener('click', () => {
+                const randomGame = games
+                    .filter(game => !currentGame || game.name !== currentGame.name) // Exclude current game
+                    .sort(() => Math.random() - 0.5)[0]; // Get random game
+                localStorage.setItem('currentGame', JSON.stringify({
+                    name: randomGame.name,
+                    url: `https://html5.gamedistribution.com/${randomGame.id}/`
+                }));
+                window.location.reload();
+            });
+        }
+
+        // Control panel functionality
+        const likeBtn = document.querySelector('.like-btn');
+        const dislikeBtn = document.querySelector('.dislike-btn');
+        const downloadBtn = document.querySelector('.download-btn');
+        const refreshBtn = document.querySelector('.refresh-btn');
+        const fullscreenBtn = document.querySelector('.fullscreen-btn');
+        const gameFrame = document.getElementById('gameFrame');
+
+        likeBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (dislikeBtn.classList.contains('active')) {
+                dislikeBtn.classList.remove('active');
+            }
+        });
+
+        dislikeBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (likeBtn.classList.contains('active')) {
+                likeBtn.classList.remove('active');
+            }
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            alert('Download feature coming soon!');
+        });
+
+        refreshBtn.addEventListener('click', function() {
+            const currentSrc = gameFrame.src;
+            gameFrame.src = currentSrc;
+        });
+
+        fullscreenBtn.addEventListener('click', function() {
+            if (!document.fullscreenElement) {
+                gameFrame.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+                this.innerHTML = '<i class="fas fa-compress"></i>';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    this.innerHTML = '<i class="fas fa-expand"></i>';
+                }
+            }
+        });
+
+        // Get games from the main games array
+        const mainGames = games; // Using the games array that's already defined above
+
+        // Function to shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to generate game cards HTML
+        function generateGameCards() {
+            // Get 24 random games from the main games array
+            const shuffledGames = shuffleArray([...mainGames]);
+            const selectedGames = shuffledGames.slice(0, 24); // Get first 24 games
+            
+            const gamesGrid = document.querySelector('.similar-games-grid');
+            gamesGrid.innerHTML = ''; // Clear existing content
+
+            // Generate 24 game cards (3 rows x 8 columns)
+            selectedGames.forEach(game => {
+                const gameCard = `
+                    <div class="similar-game-card">
+                        <a href="javascript:void(0)" onclick="loadGameByName('${game.name}')">
+                            <img src="https://img.gamedistribution.com/${game.id}-512x512.jpg" alt="${game.name}">
+                            <h3>${game.name}</h3>
+                        </a>
+                    </div>
+                `;
+                gamesGrid.innerHTML += gameCard;
+            });
+        }
+
+        // Function to load game by name
+        function loadGameByName(gameName) {
+            const game = mainGames.find(g => g.name === gameName);
+            if (game) {
+                const gameUrl = `https://html5.gamedistribution.com/${game.id}/`;
+                const iframe = document.querySelector('#gameFrame');
+                iframe.src = gameUrl;
+                
+                // Update game title
+                const titleElement = document.querySelector('.game-title');
+                if (titleElement) {
+                    titleElement.textContent = game.name;
+                }
+                
+                // Update URL without reloading
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.set('name', game.name);
+                window.history.pushState({}, '', newUrl);
+
+                // Regenerate similar games when a new game is loaded
+                generateGameCards();
+            }
+        }
+
+        // Load initial game based on URL parameter
+        function loadInitialGame() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameName = urlParams.get('name');
+            if (gameName) {
+                loadGameByName(gameName);
+            }
+        }
+
+        // Generate cards and load initial game when page loads
+        window.addEventListener('load', () => {
+            generateGameCards();
+            loadInitialGame();
+        });
+
+        // Random game function update
+        function playRandomGame() {
+            const randomGame = mainGames[Math.floor(Math.random() * mainGames.length)];
+            loadGameByName(randomGame.name);
+        }
+    </script>
+</body>
+</html>

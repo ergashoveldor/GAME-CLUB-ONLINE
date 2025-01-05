@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameClub - Online Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Game<span class="highlight">Club</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="./new.html">New</a>
+            <a href="/hot">Hot</a>
+            <a href="/best">Best</a>
+            <a href="/exclusive">Exclusive</a>
+            <a href="/sprunki">Sprunki</a>
+            <a href="/featured">Featured</a>
+            <a href="/played">Played</a>
+            <a href="/tags">Tags</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="games-container">
+        <main class="games-grid">
+            <script>
+                // Game data
+                const games = [
+                    {
+                        id: '37c9de592bf243928ea0a8611857afd3',
+                        name: 'Mask Evolution 3d',
+                        image: 'https://img.gamedistribution.com/37c9de592bf243928ea0a8611857afd3-512x512.jpg'
+                    },
+                    {
+                        id: '805aab2a751b418d8fbcc319044413f1',
+                        name: 'Mad Truck',
+                        image: 'https://img.gamedistribution.com/805aab2a751b418d8fbcc319044413f1-512x512.jpg'
+                    },
+                    {
+                        id: '6d6b3cb66450477a9b2d6df2f7372635',
+                        name: 'Zombie Outbreak Survive',
+                        image: 'https://img.gamedistribution.com/6d6b3cb66450477a9b2d6df2f7372635-512x384.jpg'
+                    },
+                    {
+                        id: '11333ba11ba249e49ae928ecab3a0b6d',
+                        name: 'Car Fighter',
+                        image: 'https://img.gamedistribution.com/11333ba11ba249e49ae928ecab3a0b6d-512x384.jpg'
+                    },
+                    {
+                        id: '17d229e26e5f485ba9a4ab11a87942bb',
+                        name: 'Basket Shot',
+                        image: 'https://img.gamedistribution.com/17d229e26e5f485ba9a4ab11a87942bb-512x384.jpg'
+                    },
+                    {
+                        id: 'd94dfa9994034546a88f260d7dee078f',
+                        name: 'Stickman vs Zombies: Epic Fight',
+                        image: 'https://img.gamedistribution.com/d94dfa9994034546a88f260d7dee078f-512x384.jpg'
+                    },
+                    {
+                        id: 'dea0d13d63fb4eb1b8c1b8971fe75635',
+                        name: 'Block Craft 3d',
+                        image: 'https://img.gamedistribution.com/dea0d13d63fb4eb1b8c1b8971fe75635-512x384.jpg'
+                    },
+                    {
+                        id: 'c2da2942e72f47fc815b4b7cd45fc3d8',
+                        name: 'Basket Sport Stars',
+                        image: 'https://img.gamedistribution.com/c2da2942e72f47fc815b4b7cd45fc3d8-512x384.jpg'
+                    },
+                    {
+                        id: 'b375b05ea29b40abaaf3606a2ff215ad',
+                        name: 'Tower Crash 3D',
+                        image: 'https://img.gamedistribution.com/b375b05ea29b40abaaf3606a2ff215ad-512x384.jpg'
+                    },
+                    {
+                        id: '59e9362f0f9f4bb4b94ab698bf0a557a',
+                        name: 'Spaceflight Simulator',
+                        image: 'https://img.gamedistribution.com/59e9362f0f9f4bb4b94ab698bf0a557a-512x384.jpg'
+                    },
+                    {
+                        id: '1ebba0a58564412f9a6be21511f86b48',
+                        name: 'Archery Ragdoll',
+                        image:  'https://img.gamedistribution.com/1ebba0a58564412f9a6be21511f86b48-512x384.jpg'
+                    },
+                    {
+                        id: '8917279504de4de3b2153bcf70ee4f8a',
+                        name: 'Super Sprunki Clicker',
+                        image: 'https://img.gamedistribution.com/8917279504de4de3b2153bcf70ee4f8a-512x384.jpg'
+                    },
+                    {
+                        id: '79cbc1764ef943c2b6a119a82d0ded0f',
+                        name: 'Connect 2 Cars',
+                        image: 'https://img.gamedistribution.com/79cbc1764ef943c2b6a119a82d0ded0f-512x384.jpg'
+                    },
+                    {
+                        id: '23ef273b2cbf439897d1f1da7fe5fc80',
+                        name: 'Real Racing 3D',
+                        image: 'https://img.gamedistribution.com/23ef273b2cbf439897d1f1da7fe5fc80-512x384.jpg'
+                    },
+                    {
+                        id: '4237b433eb5c4698a31e0cd0203fbbfa',
+                        name: 'Mini Shooters',
+                        image: 'https://img.gamedistribution.com/4237b433eb5c4698a31e0cd0203fbbfa-512x384.jpg'
+                    },
+                    {
+                        id: '5a67624d5d3d4e409f187d11f910e5fb',
+                        name: 'Block Mine Fuse TNT',
+                        image: 'https://img.gamedistribution.com/5a67624d5d3d4e409f187d11f910e5fb-512x384.jpg'
+                    },
+                    {
+                        id: '61dc16880f0e47da809c5891a2457dea',
+                        name: 'Hardventure',
+                        image: 'https://img.gamedistribution.com/61dc16880f0e47da809c5891a2457dea-512x512.jpg'
+                    },
+                    {
+                        id: '003cf1f776e54eb9a0457cccc3446829',
+                        name: 'Turbo Race',
+                        image: 'https://img.gamedistribution.com/003cf1f776e54eb9a0457cccc3446829-512x512.jpg'
+                    },
+                    {
+                        id: 'b410ed46c5eb4bd2a000bb11a7511ff6',
+                        name: 'Sandwich Runner',
+                        image: 'https://img.gamedistribution.com/b410ed46c5eb4bd2a000bb11a7511ff6-512x512.jpg'
+                    },
+                    {
+                        id: 'cc327e0a9ddb404f85b2e7940c974c98',
+                        name: 'Car Park Simulator',
+                        image: 'https://img.gamedistribution.com/cc327e0a9ddb404f85b2e7940c974c98-512x512.jpg'
+                    },
+                    {
+                        id: 'b88660579d4e4a16b520d9e91c7a782c',
+                        name: 'Slenderman Back to School',
+                        image: 'https://img.gamedistribution.com/b88660579d4e4a16b520d9e91c7a782c-512x512.jpg'
+                    },
+                    {
+                        id: '3e008586440b457c8f107b367f544af0',
+                        name: 'Chicken Strike',
+                        image: 'https://img.gamedistribution.com/3e008586440b457c8f107b367f544af0-512x512.jpg'
+                    },
+                    {
+                        id: '49eaf121f8834efc907844b130481f98',
+                        name: 'Walkers Attack',
+                        image: 'https://img.gamedistribution.com/49eaf121f8834efc907844b130481f98-512x512.jpg'
+                    },
+                    {
+                        id: 'ac1cfe86f86a41ac8a6183a63ab98d27',
+                        name: 'TearDown - Destruction SandBox',
+                        image: 'https://img.gamedistribution.com/ac1cfe86f86a41ac8a6183a63ab98d27-512x512.jpg'
+                    },
+                    {
+                        id: '8a173da3b84842358044c63452fea873',
+                        name: 'Triangle Way',
+                        image: 'https://img.gamedistribution.com/8a173da3b84842358044c63452fea873-512x512.jpg'
+                    },
+                    {
+                        id: '478f36658478422c84021b62054466da',
+                        name: 'Draw And Escape',
+                        image: 'https://img.gamedistribution.com/478f36658478422c84021b62054466da-512x512.jpg'
+                    },
+                    {
+                        id: '8d125aecd58f4645bffda294deca7061',
+                        name: 'Gun Evolution',
+                        image: 'https://img.gamedistribution.com/8d125aecd58f4645bffda294deca7061-512x512.jpg'
+                    },
+                    {
+                        id: 'e06e45bf9c844821b4d7424482cd749c',
+                        name: 'Kick the Noobik 3D',
+                        image: 'https://img.gamedistribution.com/e06e45bf9c844821b4d7424482cd749c-512x512.jpg'
+                    },
+                    {
+                        id: '22c2864d0e2f48dd95be3e36b43429d9',
+                        name: 'Us Army Car Games Truck Driving',
+                        image: 'https://img.gamedistribution.com/22c2864d0e2f48dd95be3e36b43429d9-512x384.jpg'
+                    },
+                    {
+                        id: '757f448d32704d56a40351d3439727b0',
+                        name: 'Sportsball Merge',
+                        image: 'https://img.gamedistribution.com/757f448d32704d56a40351d3439727b0-512x384.jpg'
+                    },
+                    {
+                        id: '0d95d64a4b8e440981a7b067c483cdf2',
+                        name: 'Juicy Match',
+                        image: 'https://img.gamedistribution.com/0d95d64a4b8e440981a7b067c483cdf2-512x384.jpg'
+                    },
+                    {
+                        id: 'e594452e69744919ab3bc18c666dc762',
+                        name: 'Crazy Axe',
+                        image: 'https://img.gamedistribution.com/e594452e69744919ab3bc18c666dc762-512x384.jpg'
+                    },
+                    {
+                        id: '9c327672a2da42408f4602a2c1981100',
+                        name: 'Tank Sniper 3D',
+                        image: 'https://img.gamedistribution.com/9c327672a2da42408f4602a2c1981100-512x384.jpg'
+                    },
+                    {
+                        id: 'fc419fe8405640cbb7759e9af92aef23',
+                        name: 'Fashion Princess Dress Up',
+                        image: 'https://img.gamedistribution.com/fc419fe8405640cbb7759e9af92aef23-512x384.jpg'
+                    },
+                    {
+                        id: '4a73cd3206ca46f58f28895377ff6624',
+                        name: 'Crazy Bunnies',
+                        image: 'https://img.gamedistribution.com/4a73cd3206ca46f58f28895377ff6624-512x384.jpg'
+                    },
+                    {
+                        id: '33347defdabc4460ae5a4f22663af813',
+                        name: 'My Hospital Learn Care',
+                        image: 'https://img.gamedistribution.com/33347defdabc4460ae5a4f22663af813-512x384.jpg'
+                    },
+                    {
+                        id: 'da9fbff0f8534c15b27dd7174a3e284f',
+                        name: 'Space Survivor',
+                        image: 'https://img.gamedistribution.com/da9fbff0f8534c15b27dd7174a3e284f-512x384.jpg'
+                    },
+                    {
+                        id: '0143ede05b904e3db4add3645b0ef415',
+                        name: 'Wild Hunting Clash',
+                        image: 'https://img.gamedistribution.com/0143ede05b904e3db4add3645b0ef415-512x384.jpg'
+                    },
+                    {
+                        id: '6124b63ea76a4c7bb77c2fa500286b5f',
+                        name: 'Cars Merge',
+                        image: 'https://img.gamedistribution.com/6124b63ea76a4c7bb77c2fa500286b5f-512x384.jpg'
+                    },
+                    {
+                        id: '0c93ae8fb4eb4604b6e3d0d5ea5eb449',
+                        name: 'Stick Boy: Bazooka Ragdoll',
+                        image: 'https://img.gamedistribution.com/0c93ae8fb4eb4604b6e3d0d5ea5eb449-512x384.jpg'
+                    },
+                    {
+                        id: '9ee26ba4405c456094c70af7dc31a524',
+                        name: 'Geometry Arrow',
+                        image: 'https://img.gamedistribution.com/9ee26ba4405c456094c70af7dc31a524-512x384.jpg'
+                    },
+                    {
+                        id: '17dd3831198c42d29feb07c6313d3838',
+                        name: 'Pursuit Rampage',
+                        image: 'https://img.gamedistribution.com/17dd3831198c42d29feb07c6313d3838-512x384.jpg'
+                    },
+                    {
+                        id: '95c294b7d2ba48f380e96c6c77478fb0',
+                        name: 'Cosmo Puzzle',
+                        image: 'https://img.gamedistribution.com/95c294b7d2ba48f380e96c6c77478fb0-512x384.jpg'
+                    },
+                    {
+                        id: '1f6162f5ac0541cca72f77a833acde86',
+                        name: 'Ball Dunk Fall',
+                        image: 'https://img.gamedistribution.com/1f6162f5ac0541cca72f77a833acde86-512x384.jpg'
+                    },
+                    {
+                        id: '9b704c9b67fe4fbf99623680f899780e',
+                        name: 'Little Commander. Red vs Blue',
+                        image: 'https://img.gamedistribution.com/9b704c9b67fe4fbf99623680f899780e-512x384.jpg'
+                    },
+                    {
+                        id: '822814385dfb43bfbaec28e839dedeb7',
+                        name: 'Crazy Hill Climbing',
+                        image: 'https://img.gamedistribution.com/822814385dfb43bfbaec28e839dedeb7-512x384.jpg'
+                    },
+                    {
+                        id: '2b7147899bf8470fbe68c815c981d220',
+                        name: 'Stickman Fight Pro',
+                        image: 'https://img.gamedistribution.com/2b7147899bf8470fbe68c815c981d220-512x384.jpg'
+                    },
+                    {
+                        id: '35082481c2cd4939b524fbdfd19c3ec6',
+                        name: 'Color Rings Block Puzzle',
+                        image: 'https://img.gamedistribution.com/35082481c2cd4939b524fbdfd19c3ec6-512x384.jpg'
+                    },
+                    {
+                        id: '6583b3aeb8674d54b9b9ab4cf94e2567',
+                        name: 'Exit - Puzzle',
+                        image: 'https://img.gamedistribution.com/6583b3aeb8674d54b9b9ab4cf94e2567-512x384.jpg'
+                    },
+                    {
+                        id: '0e860e3416b142758d2e2aa5bedab4fb',
+                        name: 'Space Shooter - Speed Typing Challenge',
+                        image: 'https://img.gamedistribution.com/0e860e3416b142758d2e2aa5bedab4fb-512x384.jpg'
+                    },
+                    {
+                        id: 'e6cd7779e6df40508b408ef442c0706f',
+                        name: 'King of Crabs',
+                        image: 'https://img.gamedistribution.com/e6cd7779e6df40508b408ef442c0706f-512x384.jpg'
+                    },
+                    {
+                        id: '91b698f230fe4b17b7f038a9490e6f67',
+                        name: 'My Fire Station World',
+                        image: 'https://img.gamedistribution.com/91b698f230fe4b17b7f038a9490e6f67-512x384.jpg'
+                    },
+                    {
+                        id: 'e103db40071a4af38aab2061bf799455',
+                        name: 'Run 3D',
+                        image: 'https://img.gamedistribution.com/e103db40071a4af38aab2061bf799455-512x384.jpg'
+                    },
+                    {
+                        id: '022eb87c822442cd99965c45858e0c65',
+                        name: 'ASMR Beauty Homeless',
+                        image: 'https://img.gamedistribution.com/022eb87c822442cd99965c45858e0c65-512x384.jpg'
+                    },
+                    {
+                        id: 'bb3dbe0a9c214bac87ea41f7d91d4e15',
+                        name: 'Gun Clone',
+                        image: 'https://img.gamedistribution.com/bb3dbe0a9c214bac87ea41f7d91d4e15-512x384.jpg'
+                    },
+                    {
+                        id: 'afffb7c450904a1494758f5508f7b000',
+                        name: 'Jelly Block Puzzle',
+                        image: 'https://img.gamedistribution.com/afffb7c450904a1494758f5508f7b000-512x384.jpg'
+                    },
+                    {
+                        id: '26b3b48bea8e46f2b7123f0742a7164f',
+                        name: 'Color Sort Puzzle',
+                        image: 'https://img.gamedistribution.com/26b3b48bea8e46f2b7123f0742a7164f-512x384.jpg'
+                    },
+                    {
+                        id: '3f9e0bc89aee49e48469daba1a23a10d',
+                        name: 'Dog Life Simulator',
+                        image: 'https://img.gamedistribution.com/3f9e0bc89aee49e48469daba1a23a10d-512x384.jpg'
+                    },
+                    {
+                        id: '963ad68c0bac41ba9a540994d2954d93',
+                        name: 'Find The Missing Part',
+                        image: 'https://img.gamedistribution.com/963ad68c0bac41ba9a540994d2954d93-512x384.jpg'
+                    },
+                    {
+                        id: 'd11e91e2b6d340dc8c49a189c014aa8c',
+                        name: 'Wild Tanks',
+                        image: 'https://img.gamedistribution.com/d11e91e2b6d340dc8c49a189c014aa8c-512x384.jpg'
+                    },
+                    {
+                        id: '7e0d4ac309994e2b9be602835c88b0c2',
+                        name: 'Mega Ramps Ultimate Car Races',
+                        image: 'https://img.gamedistribution.com/7e0d4ac309994e2b9be602835c88b0c2-512x384.jpg'
+                    },
+                    {
+                        id: '76902964b0a84963ac23ae3ad750e8bb',
+                        name: 'Tanks Merge: Tank War Blitz',
+                        image: 'https://img.gamedistribution.com/76902964b0a84963ac23ae3ad750e8bb-512x384.jpg'
+                    },
+                    {
+                        id: '14b5bd0218824dd3965eed3b186d936f',
+                        name: 'Football Penalty',
+                        image: 'https://img.gamedistribution.com/14b5bd0218824dd3965eed3b186d936f-512x384.jpg'
+                    },
+                    {
+                        id: '92ed22538eaa47fe85a830a78d6b752f',
+                        name: 'Ultimate Sports Car Drift',
+                        image: 'https://img.gamedistribution.com/92ed22538eaa47fe85a830a78d6b752f-512x384.jpg'
+                    },
+                    {
+                        id: 'a649a6a4ee22489f99a0124a8ffc3310',
+                        name: 'UFO Attack',
+                        image: 'https://img.gamedistribution.com/a649a6a4ee22489f99a0124a8ffc3310-512x384.jpg'
+                    },
+                    {
+                        id: '0ff430a7db394a58a3cae92dd5028942',
+                        name: 'Zombie Royale Io',
+                        image: 'https://img.gamedistribution.com/0ff430a7db394a58a3cae92dd5028942-512x384.jpg'
+                    },
+                    {
+                        id: '293a9af090ff4a958459f30a4c428967',
+                        name: 'SWAT & Plants vs Zombies',
+                        image: 'https://img.gamedistribution.com/293a9af090ff4a958459f30a4c428967-512x384.jpg'
+                    },
+                    {
+                        id: '865df4675faf4ff1973283a624842c06',
+                        name: 'My City Hospital',
+                        image: 'https://img.gamedistribution.com/865df4675faf4ff1973283a624842c06-512x384.jpg'
+                    },
+                    {
+                        id: '6552bf3254b441c1baf6b4727006bd28',
+                        name: 'Stunt Multiplayer Arena',
+                        image: 'https://img.gamedistribution.com/6552bf3254b441c1baf6b4727006bd28-512x384.jpg'
+                    },
+                    {
+                        id: 'fd8ad948b534420caced19c62764019f',
+                        name: 'Crazy Plane Landing',
+                        image: 'https://img.gamedistribution.com/fd8ad948b534420caced19c62764019f-512x384.jpg'
+                    },
+                    {
+                        id: '563a3f252c6e4ef8a7fa4a59b9f47c5c',
+                        name: 'Geometry Rush 4D',
+                        image: 'https://img.gamedistribution.com/563a3f252c6e4ef8a7fa4a59b9f47c5c-512x384.jpg'
+                    },
+                    {
+                        id: 'c1951802cb1a439b998c1fa4bbfc4174',
+                        name: 'Zombie Defense: War',
+                        image: 'https://img.gamedistribution.com/c1951802cb1a439b998c1fa4bbfc4174-512x384.jpg'
+                    },
+                    {
+                        id: '623baec23d504c83acab0b5250859ba8',
+                        name: 'Hazmob FPS',
+                        image: 'https://img.gamedistribution.com/623baec23d504c83acab0b5250859ba8-512x512.jpg'
+                    },
+                    {
+                        id: '99cf2c7b72fa4151a25ab371d826e4d8',
+                        name: 'Ultimate Transport Driving Sim',
+                        image: 'https://img.gamedistribution.com/99cf2c7b72fa4151a25ab371d826e4d8-512x512.jpg'
+                    },
+                    {
+                        id: 'a3792900a21b48ddb546554a25057e31',
+                        name: 'Plant Girl Defense Zombie',
+                        image: 'https://img.gamedistribution.com/a3792900a21b48ddb546554a25057e31-512x384.jpg'
+                    },
+                    {
+                        id: '180ff7e091954817afeeebd7d2324a75',
+                        name: 'Crazy Van',
+                        image: 'https://img.gamedistribution.com/180ff7e091954817afeeebd7d2324a75-512x512.jpg'
+                    },
+                    {
+                        id: 'd02d956b0aab4b8e918426e7d44a07f9',
+                        name: 'Police Station',
+                        image: 'https://img.gamedistribution.com/d02d956b0aab4b8e918426e7d44a07f9-512x512.jpg'
+                    },
+                    {
+                        id: '6b93a7631e0d41d59cd4d661b46ccf90',
+                        name: 'Turbo Race 3D',
+                        image: 'https://img.gamedistribution.com/6b93a7631e0d41d59cd4d661b46ccf90-512x512.jpg'
+                    },
+                    {
+                        id: 'fc26be55f6e441988fe29e88ee67215a',
+                        name: 'Army Truck Driver Online',
+                        image: 'https://img.gamedistribution.com/fc26be55f6e441988fe29e88ee67215a-512x512.jpg'
+                    },
+                    {
+                        id: 'b60e3a97ac674e939f2ad04e3a590714',
+                        name: 'Hero Fight Clash',
+                        image: 'https://img.gamedistribution.com/b60e3a97ac674e939f2ad04e3a590714-512x384.jpg'
+                    }
+                ];
+
+                // Shuffle games array
+                const shuffledGames = [...games].sort(() => Math.random() - 0.5);
+
+                // Create and append game cards
+                shuffledGames.forEach(game => {
+                    document.write(`
+                        <div class="game-card">
+                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: 'https://html5.gamedistribution.com/${game.id}/'})); window.location.href='game-frame.html';">
+                                <img src="${game.image}" alt="${game.name}">
+                                <h3>${game.name}</h3>
+                            </a>
+                        </div>
+                    `);
+                });
+            </script>
+        </main>
+        <div class="random-game-container">
+            <button class="random-game-btn">
+                <i class="fas fa-dice"></i>
+                PLAY A RANDOM GAME
+            </button>
+        </div>
+
+        <div class="games-menu">
+            <h2>Game Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Exclusive Games">
+                    <span>Exclusive Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Sprunki Games">
+                    <span>Sprunki Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Car Games">
+                    <span>Car Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Gun Games">
+                    <span>Gun Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Dress up Games">
+                    <span>Dress up Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Attack Games">
+                    <span>Attack Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Exclusive Games">
+                    <span>Exclusive Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Sprunki Games">
+                    <span>Sprunki Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Car Games">
+                    <span>Car Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Gun Games">
+                    <span>Gun Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Dress up Games">
+                    <span>Dress up Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Attack Games">
+                    <span>Attack Games</span>
+                </div>
+                <!-- Add all 36 category cards following the same pattern -->
+            </div>
+        </div>
+    </div>
+
+    <div class="text-section">
+        <div class="text-content">
+            <h2>FreeGames - the Ultimate Free Online Games Destination</h2>
+            <p>FreeGames.com offers more than 1000 free games to play, and is your premier destination for the hottest, highest quality, and most comprehensive free online games. We are dedicated to serving the vast number of game lovers with no age limit. Here, users of all ages can find suitable games free online to play, be it alone or with friends.</p>
+
+            <h2>Explore a Vast Collection of Popular and Diverse Games</h2>
+            <p>Our game developers stay updated on popular games and fashion trends to release new games daily on our platform. You can simply click the games logo icon and enjoy the fun free to play.</p>
+
+            <p>We have a diverse gaming bank: We offer arcade games for kids such as <a href="#" class="game-link">Bridge Rush Stairs</a>. We also have fantastic girl games like Kitty <a href="#" class="game-link">Kate Caring Game</a>. Additionally, we have cool math games for boys like <a href="#" class="game-link">Bro Race Count</a>.</p>
+
+            <p>Furthermore, we also have sports games like <a href="#" class="game-link">Soccer Hero</a>. If you're an enthusiast of car games, you shouldn't overlook the game <a href="#" class="game-link">Street Car Race Ultimate</a>. In total, we have over 1,000 games to ensure there's something for everyone.</p>
+
+            <div class="expandable-content">
+                <h2>Engage in the Finest Online Games Directly</h2>
+                <p>We deliver every online HTML5 game link with comparable gameplay. All the best HTML5 online games are free to play as well. No download and installation requirements, and no annoying advertisements. You can start your journey anywhere with any device, no matter Android, iOS, PC, mobile, or tablet!</p>
+
+                <p>Get ready to dive into a world of endless fun and excitement with our online games free! With new games added regularly, you'll always have something fresh to try. Our website has many options for both casual and dedicated gamers to enjoy for hours. Join us today and start playing!</p>
+
+                <p>If you have any questions about our games or website, please don't hesitate to <a href="#" class="contact-link">contact us</a>. If you can't find your favorite online games, feel free to reach out to us as well.</p>
+            </div>
+        </div>
+        <button class="show-more-btn">Show more <i class="fas fa-chevron-down"></i></button>
+    </div>
+
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top when button is clicked
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Home</a> - 
+            <a href="#">Contact Us</a> - 
+            <a href="#">TOS</a> - 
+            <a href="#">Privacy</a>
+            <span class="copyright"> FreeGames.Com</span>
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.show-more-btn').addEventListener('click', function() {
+            const content = document.querySelector('.expandable-content');
+            const btn = document.querySelector('.show-more-btn');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                btn.innerHTML = 'Show more <i class="fas fa-chevron-down"></i>';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                btn.innerHTML = 'Show less <i class="fas fa-chevron-up"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

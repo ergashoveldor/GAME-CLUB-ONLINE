@@ -1,0 +1,4361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameClub - Online Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        .pagination button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #1a1b26;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pagination button.active {
+            background: #7957F3;
+        }
+        .pagination button:hover:not(.active) {
+            background: #2a2b36;
+        }
+        .pagination .next {
+            background: #7957F3;
+            font-size: 16px;
+        }
+        .pagination .next i {
+            font-weight: bold;
+        }
+        .pagination .ellipsis {
+            color: #7957F3;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Game<span class="highlight">Club</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="./new.html">New</a>
+            <a href="/hot">Hot</a>
+            <a href="/best">Best</a>
+            <a href="/exclusive">Exclusive</a>
+            <a href="/sprunki">Sprunki</a>
+            <a href="/featured">Featured</a>
+            <a href="/played">Played</a>
+            <a href="/tags">Tags</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="games-container">
+        <main>
+            <script>
+                // Game data
+                const games = [
+                    {
+                        id: 'a137055068d44d8c9c7ccc0c66e43df7',
+                        name: 'Mutant Assassin 3D',
+                        image: 'https://img.gamedistribution.com/a137055068d44d8c9c7ccc0c66e43df7-512x384.jpg'
+                    },
+                    {
+                        id: '39d8fb0fc5784ff5a6445e4f84645f6e',
+                        name: 'Zombie Idle Defense',
+                        image: 'https://img.gamedistribution.com/39d8fb0fc5784ff5a6445e4f84645f6e-512x384.jpg'
+                    },
+                    {
+                        id: 'ba81748efe4043d5891173df143d4708',
+                        name: 'Countryside Driving Quest',
+                        image: 'https://img.gamedistribution.com/ba81748efe4043d5891173df143d4708-512x384.jpg'
+                    },
+                    {
+                        id: 'e0f35101bc604812b68299f3b09780e1',
+                        name: 'Loop Survivors Zombie City',
+                        image: 'https://img.gamedistribution.com/e0f35101bc604812b68299f3b09780e1-512x384.jpg'
+                    },
+                    {
+                        id: '75a87aa8fd5a47bf9abb24f0b20488e7',
+                        name: '3D FPS Target Shooting',
+                        image: 'https://img.gamedistribution.com/75a87aa8fd5a47bf9abb24f0b20488e7-512x384.jpg'
+                    },
+                    {
+                        id: 'e153af5a19ef412299d2858132c02351',
+                        name: 'Drive, Race, Crash',
+                        image: 'https://img.gamedistribution.com/e153af5a19ef412299d2858132c02351-512x384.jpg'
+                    },
+                    {
+                        id: '7ed505972426420c9c6c958ee1a7b758',
+                        name: 'Flappy Rush',
+                        image: 'https://img.gamedistribution.com/7ed505972426420c9c6c958ee1a7b758-512x384.jpg'
+                    },
+                    {
+                        id: '96070f9edc1648e9a22b7635a38c678c',
+                        name: 'Dino Simulator City Attack',
+                        image: 'https://img.gamedistribution.com/96070f9edc1648e9a22b7635a38c678c-512x384.jpg'
+                    },
+                    {
+                        id: 'aa0e174e9d234a0e8a60354ca2a01fe2',
+                        name: 'Siberian Assault',
+                        image: 'https://img.gamedistribution.com/aa0e174e9d234a0e8a60354ca2a01fe2-512x384.jpg'
+                    },
+                    {
+                        id: '185c34c36c434888a2e901336a799f39',
+                        name: 'Deadlock.io',
+                        image: 'https://img.gamedistribution.com/185c34c36c434888a2e901336a799f39-512x384.jpg'
+                    },
+                    {
+                        id: '3232d8d696ec4bc1989cd0b4a0ec1482',
+                        name: 'Funny Walk Fail Run',
+                        image: 'https://img.gamedistribution.com/3232d8d696ec4bc1989cd0b4a0ec1482-512x384.jpg'
+                    },
+                    {
+                        id: '1a044718dad340938f955338c6db2552',
+                        name: 'Funny Balls 2048',
+                        image: 'https://img.gamedistribution.com/1a044718dad340938f955338c6db2552-512x384.jpg'
+                    },
+                    {
+                        id: '5d6e4f71077f4e4288998840f5c461b7',
+                        name: 'Elite Chess',
+                        image: 'https://img.gamedistribution.com/5d6e4f71077f4e4288998840f5c461b7-512x384.jpg'
+                    },
+                    {
+                        id: 'e87e80c099cb47a399d8c2ec4f0ca196',
+                        name: 'City Drift Racing',
+                        image: 'https://img.gamedistribution.com/e87e80c099cb47a399d8c2ec4f0ca196-512x384.jpg'
+                    },
+                    {
+                        id: 'b7ad310142254b50bffaefca9bc6224e',
+                        name: 'Tank Fury: Boss Battle 2D',
+                        image: 'https://img.gamedistribution.com/b7ad310142254b50bffaefca9bc6224e-512x384.jpg'
+                    },
+                    {
+                        id: 'f316e96549db444787c76eb4effd745d',
+                        name: 'Merge Squares',
+                        image: 'https://img.gamedistribution.com/f316e96549db444787c76eb4effd745d-512x384.jpg'
+                    },
+                    {
+                        id: '6e6fcf26de6849bb9d2315cb3d41d473',
+                        name: 'Real Driving Simulator',
+                        image: 'https://img.gamedistribution.com/6e6fcf26de6849bb9d2315cb3d41d473-512x384.jpg'
+                    },
+                    {
+                        id: '1aabc40f583a4a4aaef2881d6c2b090a',
+                        name: 'Battleship',
+                        image: 'https://img.gamedistribution.com/1aabc40f583a4a4aaef2881d6c2b090a-512x384.jpg'
+                    },
+                    {
+                        id: '5c39b3ef7a4b4ac58f0e504f41654a62',
+                        name: 'Real Motorbike Simulator Race 3D',
+                        image: 'https://img.gamedistribution.com/5c39b3ef7a4b4ac58f0e504f41654a62-512x384.jpg'
+                    },
+                    {
+                        id: 'a10d0f98899048389fccd1be43ae185a',
+                        name: 'Spiderlox Theme Park Battle',
+                        image: 'https://img.gamedistribution.com/a10d0f98899048389fccd1be43ae185a-512x384.jpg'
+                    },
+                    {
+                        id: '05651e622f534bd89e4a636b3a9aa8e7',
+                        name: 'Ships 3D IO',
+                        image: 'https://img.gamedistribution.com/05651e622f534bd89e4a636b3a9aa8e7-512x384.jpg'
+                    },
+                    {
+                        id: 'e4dee4d6b31940fc9bc701c5ffa8518f',
+                        name: 'Sprunki Find The Differences',
+                        image: 'https://img.gamedistribution.com/e4dee4d6b31940fc9bc701c5ffa8518f-512x384.jpg'
+                    },
+                    {
+                        id: 'd28ab37fbee149289d4c3d92106e2921',
+                        name: 'Ragdoll Football 2 Players',
+                        image: 'https://img.gamedistribution.com/d28ab37fbee149289d4c3d92106e2921-512x384.jpg'
+                    },
+                    {
+                        id: '76d80d681f864b098bcedcd9af96dc99',
+                        name: 'Vault Breaker',
+                        image: 'https://img.gamedistribution.com/76d80d681f864b098bcedcd9af96dc99-512x384.jpg'
+                    },
+                    {
+                        id: 'ab5576cf6f824e2db729204edaf088b5',
+                        name: 'Super Tank Hero',
+                        image: 'https://img.gamedistribution.com/ab5576cf6f824e2db729204edaf088b5-512x384.jpg'
+                    },
+                    {
+                        id: '8319e0bf2b334bf09e5fbe649741596c',
+                        name: 'Devil Duck : Not a Troll Game',
+                        image: 'https://img.gamedistribution.com/8319e0bf2b334bf09e5fbe649741596c-512x384.jpg'
+                    },
+                    {
+                        id: 'ea32a1b7222c4d25a207564983ec6cdb',
+                        name:  'Friday Night Sprunki',
+                        image: 'https://img.gamedistribution.com/ea32a1b7222c4d25a207564983ec6cdb-512x384.jpg'
+                    },
+                    {
+                        id: 'a81350af0baa4a419ae86451612e8566',
+                        name:  'Queen of Mahjong',
+                        image: 'https://img.gamedistribution.com/a81350af0baa4a419ae86451612e8566-512x384.jpg'
+                    },
+                    {
+                        id: 'b21ecd2488a5406ab3eee6843fcc1690',
+                        name: 'Sprunki Challenge',
+                        image: 'https://img.gamedistribution.com/b21ecd2488a5406ab3eee6843fcc1690-512x384.jpg'
+                    },
+                    {
+                        id: '607f9f304899446aaf075339ba3dff81',
+                        name:  'Words from Words',
+                        image:  'https://img.gamedistribution.com/607f9f304899446aaf075339ba3dff81-512x384.jpeg'
+                    },
+                    {
+                        id: '7cf46887e4af40cbb005d4385be063a4',
+                        name: 'Stupid Zombies',
+                        image: 'https://img.gamedistribution.com/7cf46887e4af40cbb005d4385be063a4-512x384.jpeg'
+                    },
+                    {
+                        id: '0a8b51e5eaee42e7b4db83ca00afc92e',
+                        name:  'Drift Boss',
+                        image:  'https://img.gamedistribution.com/0a8b51e5eaee42e7b4db83ca00afc92e-512x384.jpeg'
+                    },
+                    {
+                        id: '9053ce84878f478cbdd0773e8b93c223',
+                        name: 'Crazy Truck Parking',
+                        image: 'https://img.gamedistribution.com/9053ce84878f478cbdd0773e8b93c223-512x384.jpeg'
+                    },
+                    {
+                        id: '358c74b58308403db2575a832328b1f8',
+                        name: 'Gravity Kid',
+                        image: 'https://img.gamedistribution.com/358c74b58308403db2575a832328b1f8-512x384.jpeg'
+                    },
+                    {
+                        id: '9619f69dac5d4e6d963ca432aada4ecf',
+                        name: 'Elite SWAT Commander',
+                        image: 'https://img.gamedistribution.com/9619f69dac5d4e6d963ca432aada4ecf-512x384.jpeg'
+                    },
+                    {
+                        id: '635b4ece400845cea372258dee3882b8',
+                        name: 'Motor Tour',
+                        image: 'https://img.gamedistribution.com/635b4ece400845cea372258dee3882b8-512x384.jpeg'
+                    },
+                    {
+                        id: 'e8d11050659f4264a42675ff57885aa5',
+                        name: 'Wasteland Warriors Capture The Flag',
+                        image: 'https://img.gamedistribution.com/e8d11050659f4264a42675ff57885aa5-512x384.jpeg'
+                    },
+                    {
+                        id: '7cae2e4cced94badb3ce1960a3cf83c8',
+                        name: 'Superhero Memory Match',
+                        image: 'https://img.gamedistribution.com/7cae2e4cced94badb3ce1960a3cf83c8-512x384.jpeg'
+                    },
+                    {
+                        id: 'eb9e37f268a54764beddcae372eb9438',
+                        name: 'Bomb The Bridge',
+                        image: 'https://img.gamedistribution.com/eb9e37f268a54764beddcae372eb9438-512x384.jpeg'
+                    },
+                    {
+                        id: '565624ddbe6948559c1d66d5ef7f74ad',
+                        name: 'Desert Rally',
+                        image: 'https://img.gamedistribution.com/565624ddbe6948559c1d66d5ef7f74ad-512x384.jpeg'
+                    },
+                    {
+                        id: 'c792f762e69a41aa970e6ba431112ad4',
+                        name: 'Oddbods Monster Truck',
+                        image: 'https://img.gamedistribution.com/c792f762e69a41aa970e6ba431112ad4-512x384.jpeg'
+                    },
+                    {
+                        id: '7dd9bbe4ce28457c8483b343d046138d',
+                        name: 'Super Boxing Fight Night',
+                        image: 'https://img.gamedistribution.com/7dd9bbe4ce28457c8483b343d046138d-512x384.jpeg'
+                    },
+                    {
+                        id: 'cb5692b6922345239588db96dc9cd8ce',
+                        name: 'Zero Collision',
+                        image: 'https://img.gamedistribution.com/cb5692b6922345239588db96dc9cd8ce-512x384.jpeg'
+                    },
+                    {
+                        id: '808291e977dd4a0ea2a4d10a9cebfb62',
+                        name: 'Penalty Kick',
+                        image: 'https://img.gamedistribution.com/808291e977dd4a0ea2a4d10a9cebfb62-512x384.jpeg'
+                    },
+                    {
+                        id: 'acf41dc74f764a868430d13cf31b06db',
+                        name: 'Epic City Driver',
+                        image: 'https://img.gamedistribution.com/acf41dc74f764a868430d13cf31b06db-512x384.jpeg'
+                    },
+                    {
+                        id: '7ac0cd7fd1a24d0b98e8393746871964',
+                        name: 'Ultimate Baseball',
+                        image: 'https://img.gamedistribution.com/7ac0cd7fd1a24d0b98e8393746871964-512x384.jpeg'
+                    },
+                    {
+                        id: '7768ce781fa8440e85f7cbe3b7db76f5',
+                        name: 'Street Shooter',
+                        image: 'https://img.gamedistribution.com/7768ce781fa8440e85f7cbe3b7db76f5-512x384.jpeg'
+                    },
+                    {
+                        id: '4dbe01623bbb48f298f0375934a27a82',
+                        name: '8 Ball Pool With Friends',
+                        image: 'https://img.gamedistribution.com/4dbe01623bbb48f298f0375934a27a82-512x384.jpeg'
+                    },
+                    {
+                        id: 'c5f8858c2007484a929a39c99527c2f9',
+                        name: 'Biker Lane',
+                        image: 'https://img.gamedistribution.com/c5f8858c2007484a929a39c99527c2f9-512x384.jpeg'
+                    },
+                    {
+                        id: '09886da081dd4b4997ed4af98490b5f7',
+                        name: 'Ice Hockey Shootout',
+                        image: 'https://img.gamedistribution.com/09886da081dd4b4997ed4af98490b5f7-512x384.jpeg'
+                    },
+                    {
+                        id: 'a069de3f7d054199a2b6cd71ecabbc29',
+                        name: 'Winter Soccer',
+                        image: 'https://img.gamedistribution.com/a069de3f7d054199a2b6cd71ecabbc29-512x384.jpeg'
+                    },
+                    {
+                        id: '97cf9df4e193497a8b058bfa3d3bc9be',
+                        name: 'Spot the Difference',
+                        image: 'https://img.gamedistribution.com/97cf9df4e193497a8b058bfa3d3bc9be-512x384.jpeg'
+                    },
+                    {
+                        id: '0f985fc8d5f3443ba00d9f2d74401ee9',
+                        name: 'Shoot the Asteroids',
+                        image: 'https://img.gamedistribution.com/0f985fc8d5f3443ba00d9f2d74401ee9-512x384.jpeg'
+                    },
+                    {
+                        id: '373327f935a4434d82d95686069f51ed',
+                        name: 'Confident Driver',
+                        image: 'https://img.gamedistribution.com/373327f935a4434d82d95686069f51ed-512x384.jpeg'
+                    },
+                    {
+                        id: '9cd87f55c4364e7fb34428bda6d8bc48',
+                        name: 'Candy Jam',
+                        image: 'https://img.gamedistribution.com/9cd87f55c4364e7fb34428bda6d8bc48-512x384.jpeg'
+                    },
+                    {
+                        id: '9f2b5781a5f24abeae522368179a6be1',
+                        name: 'Ojek Pickup',
+                        image: 'https://img.gamedistribution.com/9f2b5781a5f24abeae522368179a6be1-512x384.jpeg'
+                    },
+                    {
+                        id: 'd8cc4907437b47c68267764d838744ba',
+                        name: 'Castle Blocks',
+                        image: 'https://img.gamedistribution.com/d8cc4907437b47c68267764d838744ba-512x384.jpeg'
+                    },
+                    {
+                        id: '4c4ad8da38fc481ea70e495c9026dc20',
+                        name: 'Numbers Challenge',
+                        image: 'https://img.gamedistribution.com/4c4ad8da38fc481ea70e495c9026dc20-512x384.jpeg'
+                    },
+                    {
+                        id: '5051294347994fcba46441527e7ab6e0',
+                        name: 'Fast Lane Racing',
+                        image: 'https://img.gamedistribution.com/5051294347994fcba46441527e7ab6e0-512x384.jpeg'
+                    },
+                    {
+                        id: 'a3a506c515584d31b2bd6f6bf78cae81',
+                        name: 'Soda Can Knockout',
+                        image: 'https://img.gamedistribution.com/a3a506c515584d31b2bd6f6bf78cae81-512x384.jpeg'
+                    },
+                    {
+                        id: '3f314f752d924e388e5a47d3badc7bed',
+                        name: 'King Of Strings',
+                        image: 'https://img.gamedistribution.com/3f314f752d924e388e5a47d3badc7bed-512x384.jpeg'
+                    },
+                    {
+                        id: 'bc73ad2550a44693a5c2487868f14d38',
+                        name: 'Space Alien Invaders',
+                        image: 'https://img.gamedistribution.com/bc73ad2550a44693a5c2487868f14d38-512x384.jpeg'
+                    },
+                    {
+                        id: 'f19a092c66c244d480de8f323568295f',
+                        name: 'Finger Spinner',
+                        image: 'https://img.gamedistribution.com/f19a092c66c244d480de8f323568295f-512x384.jpeg'
+                    },
+                    {
+                        id: 'b6439239c9ab43bf925defdb54ed0cbe',
+                        name: 'Wordmeister',
+                        image: 'https://img.gamedistribution.com/b6439239c9ab43bf925defdb54ed0cbe-512x384.jpeg'
+                    },
+                    {
+                        id: '79b885e7031f43f7bf8048300738ae7b',
+                        name: 'Parkour Run',
+                        image: 'https://img.gamedistribution.com/79b885e7031f43f7bf8048300738ae7b-512x384.jpeg'
+                    },
+                    {
+                        id: '91ce96fe908f4c3ca8fe456871217f2d',
+                        name: 'Unblocked',
+                        image: 'https://img.gamedistribution.com/91ce96fe908f4c3ca8fe456871217f2d-512x384.jpeg'
+                    },
+                    {
+                        id: '2af98c25d77f4027a3113875fab13f4e',
+                        name: 'Climb the Rocks',
+                        image: 'https://img.gamedistribution.com/2af98c25d77f4027a3113875fab13f4e-512x384.jpeg'
+                    },
+                    {
+                        id: '027c5a0726224761900d8ae170d44853',
+                        name: 'Triangle Wars',
+                        image: 'https://img.gamedistribution.com/027c5a0726224761900d8ae170d44853-512x384.jpeg'
+                    },
+                    {
+                        id: '8fd11f02488e4e24a1f4911e32275656',
+                        name: 'Super Jump',
+                        image: 'https://img.gamedistribution.com/8fd11f02488e4e24a1f4911e32275656-512x384.jpeg'
+                    },
+                    {
+                        id: '8e0b5c658b94485f8c2401ed4481d56d',
+                        name: 'Pipe Master',
+                        image: 'https://img.gamedistribution.com/8e0b5c658b94485f8c2401ed4481d56d-512x384.jpeg'
+                    },
+                    {
+                        id: 'aeec98864d0a41b1999939010bb25863',
+                        name: 'Kill The Spy',
+                        image: 'https://img.gamedistribution.com/aeec98864d0a41b1999939010bb25863-512x384.jpeg'
+                    },
+                    {
+                        id: '7439da1be18d44ababc5e0eefa7e5ebe',
+                        name: 'Word Hunter',
+                        image: 'https://img.gamedistribution.com/7439da1be18d44ababc5e0eefa7e5ebe-512x384.jpeg'
+                    },
+
+                    
+                ];
+
+                // Pagination settings
+                const gamesPerPage = 80;
+                let currentPage = 1;
+                const maxPages = 10;
+                const totalPages = maxPages;
+
+               
+
+                // Function to get shuffled games for a page
+                function getShuffledGamesForPage(page) {
+                    // For page 2, return Jab Jab Boxing
+                    if (page === 2) {
+                        return [
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '25d7537b06534084b44aa672007645cc',
+                                name: 'Jab Jab Boxing',
+                                image: 'https://img.gamedistribution.com/25d7537b06534084b44aa672007645cc-512x384.jpg'
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                    ];
+                    }
+                    // For page 3, return Atlantic Sky Hunter Xtreme
+                    else if (page === 3) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 4, return Atlantic Sky Hunter Xtreme
+                    else if (page === 4) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 5, return Atlantic Sky Hunter Xtreme
+                    else if (page === 5) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 6, return Atlantic Sky Hunter Xtreme
+                    else if (page === 6) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 7, return Atlantic Sky Hunter Xtreme
+                    else if (page === 7) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 8, return Atlantic Sky Hunter Xtreme
+                    else if (page === 8) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 9, return Atlantic Sky Hunter Xtreme
+                    else if (page === 9) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 10, return Atlantic Sky Hunter Xtreme
+                    else if (page === 10) {
+                        return [
+                        {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                            {
+                                id: '',
+                                name: '',
+                                image: ''
+                            },
+                        ];
+                    }
+                    // For page 1, return first 80 games from the games array
+                    else if (page === 1) {
+                        return games.slice(0, gamesPerPage);
+                    }
+                    // For any other page, return an empty array
+                    return [];
+                }
+
+                // Function to display games
+                function displayGames(page) {
+                    const gamesGrid = document.querySelector('.games-grid');
+                    gamesGrid.innerHTML = '';
+
+                    const currentGames = getShuffledGamesForPage(page);
+                    
+                    currentGames.forEach(game => {
+                        const gameCard = document.createElement('div');
+                        gameCard.className = 'game-card';
+                        gameCard.innerHTML = `
+                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: 'https://html5.gamedistribution.com/${game.id}/'})); window.location.href='game-frame.html';">
+                                <img src="${game.image}" alt="${game.name}">
+                                <h3>${game.name}</h3>
+                            </a>
+                        `;
+                        gamesGrid.appendChild(gameCard);
+                    });
+
+                    updatePaginationButtons();
+                }
+
+                // Function to create page button
+                function createPageButton(pageNum) {
+                    const button = document.createElement('button');
+                    button.textContent = pageNum;
+                    button.onclick = () => changePage(pageNum);
+                    if (currentPage === pageNum) button.classList.add('active');
+                    return button;
+                }
+
+                // Function to create ellipsis
+                function createEllipsis() {
+                    const span = document.createElement('span');
+                    span.textContent = '...';
+                    span.className = 'ellipsis';
+                    return span;
+                }
+
+                // Function to update pagination buttons
+                function updatePaginationButtons() {
+                    const paginationContainer = document.querySelector('.pagination');
+                    paginationContainer.innerHTML = '';
+
+                    // Always show first page
+                    paginationContainer.appendChild(createPageButton(1));
+
+                    if (totalPages <= 7) {
+                        // Show all pages if total pages is 7 or less
+                        for (let i = 2; i <= totalPages; i++) {
+                            paginationContainer.appendChild(createPageButton(i));
+                        }
+                    } else {
+                        if (currentPage <= 3) {
+                            // Near the start
+                            for (let i = 2; i <= 4; i++) {
+                                paginationContainer.appendChild(createPageButton(i));
+                            }
+                            paginationContainer.appendChild(createEllipsis());
+                            paginationContainer.appendChild(createPageButton(totalPages));
+                        } else if (currentPage >= totalPages - 2) {
+                            // Near the end
+                            paginationContainer.appendChild(createEllipsis());
+                            for (let i = totalPages - 3; i <= totalPages; i++) {
+                                paginationContainer.appendChild(createPageButton(i));
+                            }
+                        } else {
+                            // Middle
+                            paginationContainer.appendChild(createEllipsis());
+                            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                                paginationContainer.appendChild(createPageButton(i));
+                            }
+                            paginationContainer.appendChild(createEllipsis());
+                            paginationContainer.appendChild(createPageButton(totalPages));
+                        }
+                    }
+
+                    // Add next button if not on last page
+                    if (currentPage < totalPages) {
+                        const nextButton = document.createElement('button');
+                        nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                        nextButton.classList.add('next');
+                        nextButton.onclick = () => changePage(currentPage + 1);
+                        paginationContainer.appendChild(nextButton);
+                    }
+                }
+
+                // Function to change page
+                function changePage(page) {
+                    currentPage = page;
+                    displayGames(currentPage);
+                    window.scrollTo(0, 0);
+                }
+
+                // Initial setup
+                const gamesGrid = document.createElement('div');
+                gamesGrid.className = 'games-grid';
+                document.querySelector('.games-container main').appendChild(gamesGrid);
+
+                const paginationContainer = document.createElement('div');
+                paginationContainer.className = 'pagination';
+                document.querySelector('.games-container').appendChild(paginationContainer);
+
+                // Display initial games
+                displayGames(currentPage);
+            </script>
+        </main>
+        <div class="random-game-container">
+            <button class="random-game-btn">
+                <i class="fas fa-dice"></i>
+                PLAY A RANDOM GAME
+            </button>
+        </div>
+
+        <div class="games-menu">
+            <h2>Game Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Exclusive Games">
+                    <span>Exclusive Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Sprunki Games">
+                    <span>Sprunki Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Car Games">
+                    <span>Car Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Gun Games">
+                    <span>Gun Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Dress up Games">
+                    <span>Dress up Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Attack Games">
+                    <span>Attack Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Exclusive Games">
+                    <span>Exclusive Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Sprunki Games">
+                    <span>Sprunki Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Car Games">
+                    <span>Car Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Gun Games">
+                    <span>Gun Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Dress up Games">
+                    <span>Dress up Games</span>
+                </div>
+                <div class="category-card">
+                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Attack Games">
+                    <span>Attack Games</span>
+                </div>
+                <!-- Add all 36 category cards following the same pattern -->
+            </div>
+        </div>
+    </div>
+
+    <div class="text-section">
+        <div class="text-content">
+            <h2>Discover the Best Free Online Games</h2>
+            <p>Welcome to the ultimate destination for free online gaming! Our platform offers an extensive collection of games that cater to all preferences and age groups. Whether you're into action, adventure, strategy, or casual gaming, we've got something special for you.</p>
+            <p>Experience seamless gameplay directly in your browser without any downloads or installations required. Our games are carefully curated to ensure the highest quality and most engaging experience for our players.</p>
+            <div class="expandable-content">
+                <p>Explore our vast library of games, from classic favorites to the latest releases. Our platform is regularly updated with new titles, ensuring you'll always find fresh and exciting content to enjoy. Plus, all our games are completely free to play!</p>
+                <p>Join our growing community of gamers and discover why millions choose us as their go-to gaming destination. Start playing now and immerse yourself in endless entertainment!</p>
+            </div>
+        </div>
+        <button class="show-more-btn">Show more <i class="fas fa-chevron-down"></i></button>
+    </div>
+
+    <script>
+        document.querySelector('.show-more-btn').addEventListener('click', function() {
+            const content = document.querySelector('.expandable-content');
+            const btn = document.querySelector('.show-more-btn');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                btn.innerHTML = 'Show more <i class="fas fa-chevron-down"></i>';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                btn.innerHTML = 'Show less <i class="fas fa-chevron-up"></i>';
+            }
+        });
+    </script>
+
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top when button is clicked
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Home</a> - 
+            <a href="#">Contact Us</a> - 
+            <a href="#">TOS</a> - 
+            <a href="#">Privacy</a>
+            <span class="copyright"> FreeGames.Com</span>
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.show-less').addEventListener('click', function() {
+            const content = document.querySelector('.text-content');
+            const btn = document.querySelector('.show-less');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                btn.innerHTML = 'Show less ↑';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                btn.innerHTML = 'Show more ↓';
+            }
+        });
+    </script>
+</body>
+</html>
