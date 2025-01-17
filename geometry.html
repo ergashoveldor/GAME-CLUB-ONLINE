@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameClub - Online Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Game<span class="highlight">Club</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="./new.html">New</a>
+            <a href="/hot">Hot</a>
+            <a href="/best">Best</a>
+            <a href="/exclusive">Exclusive</a>
+            <a href="./sprunki.html">Sprunki</a>
+            <a href="./geometry.html">Geometry Dash</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+    
+    < class="games-container">
+        <main class="games-grid">
+            <script>
+                // Game data
+                const games = [
+                    {
+                        id: '7ed505972426420c9c6c958ee1a7b758',
+                        name: 'Flappy Rush',
+                        image: 'https://img.gamedistribution.com/7ed505972426420c9c6c958ee1a7b758-512x512.jpg'
+                    },    
+                    {
+                        id: '9ee26ba4405c456094c70af7dc31a524',
+                        name: 'Geometry Arrow',
+                        image: 'https://img.gamedistribution.com/9ee26ba4405c456094c70af7dc31a524-512x512.jpg'
+                    },    
+                    {
+                        id: '563a3f252c6e4ef8a7fa4a59b9f47c5c',
+                        name: 'Geometry Rush 4D',
+                        image: 'https://img.gamedistribution.com/563a3f252c6e4ef8a7fa4a59b9f47c5c-512x512.jpg'
+                    },    
+                    {
+                        id: '578e0bfd77a5447384bef492db1e18f0',
+                        name: 'Geometry Vertical',
+                        image: 'https://img.gamedistribution.com/578e0bfd77a5447384bef492db1e18f0-512x512.jpg'
+                    },    
+                    {
+                        id: '67fd9138d2e048b686c26d87dbe11360',
+                        name: 'Geometry Lite',
+                        image: 'https://img.gamedistribution.com/67fd9138d2e048b686c26d87dbe11360-512x512.jpg'
+                    },    
+                    {
+                        id: '21d107dcc9674aaab6101372065700d6',
+                        name: 'Geometry Dash Maze Maps',
+                        image: 'https://img.gamedistribution.com/21d107dcc9674aaab6101372065700d6-512x512.jpg'
+                    },    
+                    {
+                        id: '50139cbb4d28402395dfd1ef4d7d6337',
+                        name: 'Avatar Game',
+                        image: 'https://img.gamedistribution.com/50139cbb4d28402395dfd1ef4d7d6337-512x512.jpg'
+                    },    
+                    {
+                        id: 'cfc80281fb36414b980802843da06a57',
+                        name: 'Geometry Tile Rush',
+                        image: 'https://img.gamedistribution.com/cfc80281fb36414b980802843da06a57-512x512.jpeg'
+                    },    
+                    {
+                        id: '9b634d67ddd6407c95effd409b947a76',
+                        name: 'Geometry Jump',
+                        image: 'https://img.gamedistribution.com/9b634d67ddd6407c95effd409b947a76-512x512.jpeg'
+                    },    
+                    {
+                        id: 'e9457a71bace4388ac622a4a7329e71b',
+                        name: 'Geometry Neon Dash Rainbow',
+                        image: 'https://img.gamedistribution.com/e9457a71bace4388ac622a4a7329e71b-512x512.jpeg'
+                    },    
+                    {
+                        id: '3355157788a9413daa1c186d2e20eae7',
+                        name: 'Geometry Jump',
+                        image: 'https://img.gamedistribution.com/3355157788a9413daa1c186d2e20eae7-512x512.jpeg'
+                    }, 
+                    {
+                        id: '3b82218c90be447d9ce1b372d53623b0',
+                        name: 'Square Dash',
+                        image: 'https://img.gamedistribution.com/3b82218c90be447d9ce1b372d53623b0-512x512.jpeg'
+                    }, 
+                    {
+                        id: '0d44360735d24362b0d20031a7a10777',
+                        name: 'Geometry Dash Nemesis',
+                        image: 'https://img.gamedistribution.com/0d44360735d24362b0d20031a7a10777-512x512.jpeg'
+                    }, 
+                    {
+                        id: '983875ae275a4597b840aec3e61a6cfc',
+                        name: 'Geometry Road',
+                        image: 'https://img.gamedistribution.com/983875ae275a4597b840aec3e61a6cfc-512x512.jpeg'
+                    }, 
+                    {
+                        id: '29c4c5f5347849548a9c6436386f1ead',
+                        name: 'Geometry Dash Blackboard',
+                        image: 'https://img.gamedistribution.com/29c4c5f5347849548a9c6436386f1ead-512x512.jpeg'
+                    }, 
+                    {
+                        id: '336ad30912f44d46831ced092ef18506',
+                        name: 'Winter Dash',
+                        image: 'https://img.gamedistribution.com/336ad30912f44d46831ced092ef18506-512x512.jpeg'
+                    }, 
+                    {
+                        id: '99c6c4e82bde472c88d0c52f44d1e555',
+                        name: 'Geometry Jump Sketchy',
+                        image: 'https://img.gamedistribution.com/99c6c4e82bde472c88d0c52f44d1e555-512x512.jpeg'
+                    }, 
+                    {
+                        id: '45ba863dea5f40098c37640ad2949f45',
+                        name: 'Geometry Rash Challenge',
+                        image: 'https://img.gamedistribution.com/45ba863dea5f40098c37640ad2949f45-512x512.jpeg'
+                    },    
+                    {
+                        id: '81c2aff562814e699b091c2bf8504f60',
+                        name: 'Geometry Dash Bloodbath',
+                        image: 'https://img.gamedistribution.com/81c2aff562814e699b091c2bf8504f60-512x512.jpeg'
+                    },
+                    {
+                        id: 'b338d5d358c84a1db6dc6c836878ea6b',
+                        name: 'Geometry Dash Finally',
+                        image: 'https://img.gamedistribution.com/b338d5d358c84a1db6dc6c836878ea6b-512x512.jpeg'
+                    },
+                    {
+                        id: '8feebdacb2d246ba8c3f4b567502ba2d',
+                        name: 'Geometry Dash Crazy',
+                        image: 'https://img.gamedistribution.com/8feebdacb2d246ba8c3f4b567502ba2d-512x512.jpeg'
+                    },
+                    {
+                        id: '6c6c40fcb3d246ddafaf93d0ef4c4666',
+                        name: 'Geometry Jump Bit by Bit',
+                        image: 'https://img.gamedistribution.com/6c6c40fcb3d246ddafaf93d0ef4c4666-512x512.jpeg'
+                    },
+                    {
+                        id: '8b65f47d53a6406c8bc767cd1a16a2ec',
+                        name: 'Geometry Dash Classic',
+                        image: 'https://img.gamedistribution.com/8b65f47d53a6406c8bc767cd1a16a2ec-512x512.jpeg'
+                    },
+                    {
+                        id: '73dea732074947fb9577c69b722278dd',
+                        name: 'Geometry Dash: Mr Dubstep',
+                        image: 'https://img.gamedistribution.com/73dea732074947fb9577c69b722278dd-512x512.jpg'
+                    },
+                    {
+                        id: '67728fb554a441de99128c1463e89975',
+                        name: 'Escape Geometry Jump',
+                        image: 'https://img.gamedistribution.com/67728fb554a441de99128c1463e89975-512x512.jpeg'
+                    },
+                    {
+                        id: '05986334cc594695ae05a27cd748d477',
+                        name: 'Geometry Dash Jump',
+                        image: 'https://img.gamedistribution.com/05986334cc594695ae05a27cd748d477-512x512.jpeg'
+                    },
+                    {
+                        id: '19d864853fd442ddaea94349a5a3336b',
+                        name: 'Geometry Dash Horror',
+                        image: 'https://img.gamedistribution.com/19d864853fd442ddaea94349a5a3336b-512x512.jpeg'
+                    },
+                    {
+                        id: 'dbfb7c0f14f8420ab5beabbff8218c2f',
+                        name: 'Geometry Loop Jump',
+                        image: 'https://img.gamedistribution.com/dbfb7c0f14f8420ab5beabbff8218c2f-512x512.jpeg'
+                    },
+                    {
+                        id: '1982f60fe71b482eba6fc6d1837f84e5',
+                        name: 'Geometry Challenge',
+                        image: 'https://img.gamedistribution.com/1982f60fe71b482eba6fc6d1837f84e5-512x512.jpeg'
+                    }
+                ];
+
+                // Shuffle games array
+                const shuffledGames = [...games].sort(() => Math.random() - 0.5);
+
+                // Create and append game cards
+                shuffledGames.forEach(game => {
+                    document.write(`
+                        <div class="game-card">
+                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: 'https://html5.gamedistribution.com/${game.id}/'})); window.location.href='game-frame.html';">
+                                <img src="${game.image}" alt="${game.name}">
+                                <h3>${game.name}</h3>
+                            </a>
+                        </div>
+                    `);
+                });
+            </script>
+        </main>
+        
+            <div class="random-game-button">
+                <button onclick="playRandomGame()">
+                    <i class="fas fa-dice"></i>
+                    PLAY A RANDOM GAME
+                </button>
+            </div>
+        
+
+        <script>
+            // Function to get all games
+            function getAllGames() {
+                return games;  // Return all Geometry Dash games
+            }
+
+            // Function to play random game
+            function playRandomGame() {
+                const allGames = getAllGames();
+                const randomGame = allGames[Math.floor(Math.random() * allGames.length)];
+                localStorage.setItem('currentGame', JSON.stringify({
+                    name: randomGame.name,
+                    url: `https://html5.gamedistribution.com/${randomGame.id}/`
+                }));
+                window.location.href = 'game-frame.html';
+            }
+
+            // Add click event to random game button
+            document.querySelector('.random-game-button').onclick = playRandomGame;
+        </script>
+
+    </div>
+
+    <div class="text-section">
+        <div class="text-content">
+            <h2>FreeGames - the Ultimate Free Online Games Destination</h2>
+            <p>FreeGames.com offers more than 1000 free games to play, and is your premier destination for the hottest, highest quality, and most comprehensive free online games. We are dedicated to serving the vast number of game lovers with no age limit. Here, users of all ages can find suitable games free online to play, be it alone or with friends.</p>
+
+            <h2>Explore a Vast Collection of Popular and Diverse Games</h2>
+            <p>Our game developers stay updated on popular games and fashion trends to release new games daily on our platform. You can simply click the games logo icon and enjoy the fun free to play.</p>
+
+            <p>We have a diverse gaming bank: We offer arcade games for kids such as <a href="#" class="game-link">Bridge Rush Stairs</a>. We also have fantastic girl games like Kitty <a href="#" class="game-link">Kate Caring Game</a>. Additionally, we have cool math games for boys like <a href="#" class="game-link">Bro Race Count</a>.</p>
+
+            <p>Furthermore, we also have sports games like <a href="#" class="game-link">Soccer Hero</a>. If you're an enthusiast of car games, you shouldn't overlook the game <a href="#" class="game-link">Street Car Race Ultimate</a>. In total, we have over 1,000 games to ensure there's something for everyone.</p>
+
+            <div class="expandable-content">
+                <h2>Engage in the Finest Online Games Directly</h2>
+                <p>We deliver every online HTML5 game link with comparable gameplay. All the best HTML5 online games are free to play as well. No download and installation requirements, and no annoying advertisements. You can start your journey anywhere with any device, no matter Android, iOS, PC, mobile, or tablet!</p>
+
+                <p>Get ready to dive into a world of endless fun and excitement with our online games free! With new games added regularly, you'll always have something fresh to try. Our website has many options for both casual and dedicated gamers to enjoy for hours. Join us today and start playing!</p>
+
+                <p>If you have any questions about our games or website, please don't hesitate to <a href="#" class="contact-link">contact us</a>. If you can't find your favorite online games, feel free to reach out to us as well.</p>
+            </div>
+        </div>
+        <button class="show-more-btn">Show more <i class="fas fa-chevron-down"></i></button>
+    </div>
+
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top when button is clicked
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+<footer class="site-footer">
+    <div class="footer-links">
+        <span class="copyright">GameClub - 2025</span>
+    </div>
+</footer>
+    <script>
+        document.querySelector('.show-more-btn').addEventListener('click', function() {
+            const content = document.querySelector('.expandable-content');
+            const btn = document.querySelector('.show-more-btn');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                btn.innerHTML = 'Show more <i class="fas fa-chevron-down"></i>';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                btn.innerHTML = 'Show less <i class="fas fa-chevron-up"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

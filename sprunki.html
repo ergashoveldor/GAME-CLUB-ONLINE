@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameClub - Online Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Game<span class="highlight">Club</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="./new.html">New</a>
+            <a href="/hot">Hot</a>
+            <a href="/best">Best</a>
+            <a href="/exclusive">Exclusive</a>
+            <a href="./sprunki.html">Sprunki</a>
+            <a href="./geometry.html">Geometry Dash</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search" class="search-input">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="games-container">
+        <main class="games-grid">
+            <script>
+                // Game data
+                const games = [
+                    {
+                        id: 'e46c8867676648d1b62d4f29fffba94b',
+                        name: 'Sprunki Jigsaw Puzzle',
+                        image: 'https://img.gamedistribution.com/e46c8867676648d1b62d4f29fffba94b-512x512.jpg'
+                    },
+                    {
+                        id: 'ca9c6fd4901141b5bbdb88eec1bee40a',
+                        name: 'SPRUNKI 3D Escape',
+                        image: 'https://img.gamedistribution.com/ca9c6fd4901141b5bbdb88eec1bee40a-512x512.jpg'
+                    },
+                    {
+                        id: '49da11ad95bb4d33be9d522d472bfb7e',
+                        name: 'Sprunki PopIt',
+                        image: 'https://img.gamedistribution.com/49da11ad95bb4d33be9d522d472bfb7e-512x512.jpg'
+                    },
+                    {
+                        id: 'e4dee4d6b31940fc9bc701c5ffa8518f',
+                        name: 'Sprunki Find The Differences',
+                        image: 'https://img.gamedistribution.com/e4dee4d6b31940fc9bc701c5ffa8518f-512x512.jpg'
+                    },
+                    {
+                        id: 'ea32a1b7222c4d25a207564983ec6cdb',
+                        name: 'Friday Night Sprunki',
+                        image: 'https://img.gamedistribution.com/ea32a1b7222c4d25a207564983ec6cdb-512x512.jpg'
+                    },
+                    {
+                        id: 'b21ecd2488a5406ab3eee6843fcc1690',
+                        name: 'Sprunki Challenge',
+                        image: 'https://img.gamedistribution.com/b21ecd2488a5406ab3eee6843fcc1690-512x512.jpg'
+                    },
+                    {
+                        id: '8917279504de4de3b2153bcf70ee4f8a',
+                        name: 'Super Sprunki Clicker',
+                        image: 'https://img.gamedistribution.com/8917279504de4de3b2153bcf70ee4f8a-512x512.jpg'
+                    },
+                    {
+                        id: '26272dd59da64ef58bfd83f89ad4ae2f',
+                        name: 'Sprunki',
+                        image: 'https://img.gamedistribution.com/26272dd59da64ef58bfd83f89ad4ae2f-512x512.jpg'
+                    },
+                ];
+
+                // Shuffle games array
+                const shuffledGames = [...games].sort(() => Math.random() - 0.5);
+
+                // Create and append game cards
+                shuffledGames.forEach(game => {
+                    document.write(`
+                        <div class="game-card">
+                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: 'https://html5.gamedistribution.com/${game.id}/'})); window.location.href='game-frame.html';">
+                                <img src="${game.image}" alt="${game.name}">
+                                <h3>${game.name}</h3>
+                            </a>
+                        </div>
+                    `);
+                });
+            </script>
+        </main>
+        <div class="random-game-button">
+            <button onclick="playRandomGame()">
+                <i class="fas fa-dice"></i>
+                PLAY A RANDOM GAME
+            </button>
+        </div>
+
+        <script>
+            // Function to get all games
+            function getAllGames() {
+                return games;  // Return all Sprunki games
+            }
+
+            // Function to play random game
+            function playRandomGame() {
+                const allGames = getAllGames();
+                const randomGame = allGames[Math.floor(Math.random() * allGames.length)];
+                localStorage.setItem('currentGame', JSON.stringify({
+                    name: randomGame.name,
+                    url: `https://html5.gamedistribution.com/${randomGame.id}/`
+                }));
+                window.location.href = 'game-frame.html';
+            }
+
+            // Add click event to random game button
+            document.querySelector('.random-game-button').onclick = playRandomGame;
+        </script>
+
+
+    </div>
+
+    <div class="text-section">
+        <div class="text-content">
+            <h2>FreeGames - the Ultimate Free Online Games Destination</h2>
+            <p>FreeGames.com offers more than 1000 free games to play, and is your premier destination for the hottest, highest quality, and most comprehensive free online games. We are dedicated to serving the vast number of game lovers with no age limit. Here, users of all ages can find suitable games free online to play, be it alone or with friends.</p>
+
+            <h2>Explore a Vast Collection of Popular and Diverse Games</h2>
+            <p>Our game developers stay updated on popular games and fashion trends to release new games daily on our platform. You can simply click the games logo icon and enjoy the fun free to play.</p>
+
+            <p>We have a diverse gaming bank: We offer arcade games for kids such as <a href="#" class="game-link">Bridge Rush Stairs</a>. We also have fantastic girl games like Kitty <a href="#" class="game-link">Kate Caring Game</a>. Additionally, we have cool math games for boys like <a href="#" class="game-link">Bro Race Count</a>.</p>
+
+            <p>Furthermore, we also have sports games like <a href="#" class="game-link">Soccer Hero</a>. If you're an enthusiast of car games, you shouldn't overlook the game <a href="#" class="game-link">Street Car Race Ultimate</a>. In total, we have over 1,000 games to ensure there's something for everyone.</p>
+
+            <div class="expandable-content">
+                <h2>Engage in the Finest Online Games Directly</h2>
+                <p>We deliver every online HTML5 game link with comparable gameplay. All the best HTML5 online games are free to play as well. No download and installation requirements, and no annoying advertisements. You can start your journey anywhere with any device, no matter Android, iOS, PC, mobile, or tablet!</p>
+
+                <p>Get ready to dive into a world of endless fun and excitement with our online games free! With new games added regularly, you'll always have something fresh to try. Our website has many options for both casual and dedicated gamers to enjoy for hours. Join us today and start playing!</p>
+
+                <p>If you have any questions about our games or website, please don't hesitate to <a href="#" class="contact-link">contact us</a>. If you can't find your favorite online games, feel free to reach out to us as well.</p>
+            </div>
+        </div>
+        <button class="show-more-btn">Show more <i class="fas fa-chevron-down"></i></button>
+    </div>
+
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top when button is clicked
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Home</a> - 
+            <a href="#">Contact Us</a> - 
+            <a href="#">TOS</a> - 
+            <a href="#">Privacy</a>
+            <span class="copyright"> FreeGames.Com</span>
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.show-more-btn').addEventListener('click', function() {
+            const content = document.querySelector('.expandable-content');
+            const btn = document.querySelector('.show-more-btn');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                btn.innerHTML = 'Show more <i class="fas fa-chevron-down"></i>';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                btn.innerHTML = 'Show less <i class="fas fa-chevron-up"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

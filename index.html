@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-brand">
@@ -23,10 +24,8 @@
             <a href="/hot">Hot</a>
             <a href="/best">Best</a>
             <a href="/exclusive">Exclusive</a>
-            <a href="/sprunki">Sprunki</a>
-            <a href="/featured">Featured</a>
-            <a href="/played">Played</a>
-            <a href="/tags">Tags</a>
+            <a href="./sprunki.html">Sprunki</a>
+            <a href="./geometry.html">Geometry Dash</a>
         </div>
         <div class="search-container">
             <input type="text" placeholder="Search" class="search-input">
@@ -459,67 +458,34 @@
                 });
             </script>
         </main>
-        <div class="random-game-container">
-            <button class="random-game-btn">
+        <div class="random-game-button">
+            <button onclick="playRandomGame()">
                 <i class="fas fa-dice"></i>
                 PLAY A RANDOM GAME
             </button>
         </div>
 
-        <div class="games-menu">
-            <h2>Game Categories</h2>
-            <div class="category-grid">
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Exclusive Games">
-                    <span>Exclusive Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Sprunki Games">
-                    <span>Sprunki Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Car Games">
-                    <span>Car Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Gun Games">
-                    <span>Gun Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Dress up Games">
-                    <span>Dress up Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Attack Games">
-                    <span>Attack Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Exclusive Games">
-                    <span>Exclusive Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Sprunki Games">
-                    <span>Sprunki Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Car Games">
-                    <span>Car Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Gun Games">
-                    <span>Gun Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Dress up Games">
-                    <span>Dress up Games</span>
-                </div>
-                <div class="category-card">
-                    <img src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpeg" alt="Attack Games">
-                    <span>Attack Games</span>
-                </div>
-                <!-- Add all 36 category cards following the same pattern -->
-            </div>
-        </div>
+        <script>
+            // Function to get all games
+            function getAllGames() {
+                return games;  // Return all games from the main page
+            }
+
+            // Function to play random game
+            function playRandomGame() {
+                const allGames = getAllGames();
+                const randomGame = allGames[Math.floor(Math.random() * allGames.length)];
+                localStorage.setItem('currentGame', JSON.stringify({
+                    name: randomGame.name,
+                    url: `https://html5.gamedistribution.com/${randomGame.id}/`
+                }));
+                window.location.href = 'game-frame.html';
+            }
+
+            // Add click event to random game button
+            document.querySelector('.random-game-button').onclick = playRandomGame;
+        </script>
+
     </div>
 
     <div class="text-section">
@@ -578,7 +544,7 @@
             <a href="#">Contact Us</a> - 
             <a href="#">TOS</a> - 
             <a href="#">Privacy</a>
-            <span class="copyright"> FreeGames.Com</span>
+            <span class="copyright"> GameClub</span>
         </div>
     </footer>
     <script>
