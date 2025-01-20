@@ -2803,6 +2803,10 @@
                     return [];
                 }
 
+                function constructGameUrl(gameId, gameName) {
+                    return `https://html5.gamedistribution.com/${gameId}/?gd_sdk_referrer_url=https://gamedistribution.com/games/${gameName.toLowerCase().replace(/ /g, '-')}`;
+                }
+
                 // Function to display games
                 function displayGames(page) {
                     const gamesGrid = document.querySelector('.games-grid');
@@ -2814,7 +2818,7 @@
                         const gameCard = document.createElement('div');
                         gameCard.className = 'game-card';
                         gameCard.innerHTML = `
-                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: 'https://html5.gamedistribution.com/${game.id}/'})); window.location.href='game-frame.html';">
+                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: constructGameUrl('${game.id}', '${game.name}')})); window.location.href='game-frame.html';">
                                 <img src="${game.image}" alt="${game.name}">
                                 <h3>${game.name}</h3>
                             </a>
@@ -2984,6 +2988,36 @@
                 btn.innerHTML = 'Show more ↓';
             }
         });
+
+         // Function to get all games from all pages
+         function getAllGames() {
+                    const allGames = [];
+                    
+                    // Add games from page 1
+                    allGames.push(...getShuffledGamesForPage(1));
+                    
+                    // Add games from page 2
+                    allGames.push(...getShuffledGamesForPage(2));
+                    
+                    // Add games from page 3
+                    allGames.push(...getShuffledGamesForPage(3));
+                    
+                    return allGames;
+                }
+
+                // Function to play random game
+                function playRandomGame() {
+                    const allGames = getAllGames();
+                    const randomGame = allGames[Math.floor(Math.random() * allGames.length)];
+                    localStorage.setItem('currentGame', JSON.stringify({
+                        name: randomGame.name,
+                        url: constructGameUrl(randomGame.id, randomGame.name)
+                    }));
+                    window.location.href = 'game-frame.html';
+                }
+
+                // Add click event to random game button
+                document.querySelector('.random-game-button').onclick = playRandomGame;
     </script>
 </body>
 </html>

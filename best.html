@@ -2806,6 +2806,10 @@
                     return [];
                 }
 
+                function constructGameUrl(gameId, gameName) {
+                    return `https://html5.gamedistribution.com/${gameId}/?gd_sdk_referrer_url=https://gamedistribution.com/games/${gameName.toLowerCase().replace(/ /g, '-')}`;
+                }
+
                 // Function to display games
                 function displayGames(page) {
                     const gamesGrid = document.querySelector('.games-grid');
@@ -2817,7 +2821,7 @@
                         const gameCard = document.createElement('div');
                         gameCard.className = 'game-card';
                         gameCard.innerHTML = `
-                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: 'https://html5.gamedistribution.com/${game.id}/'})); window.location.href='game-frame.html';">
+                            <a href="game-frame.html" onclick="event.preventDefault(); localStorage.setItem('currentGame', JSON.stringify({name: '${game.name}', url: constructGameUrl('${game.id}', '${game.name}')})); window.location.href='game-frame.html';">
                                 <img src="${game.image}" alt="${game.name}">
                                 <h3>${game.name}</h3>
                             </a>
@@ -3016,7 +3020,7 @@
                     const randomGame = allGames[Math.floor(Math.random() * allGames.length)];
                     localStorage.setItem('currentGame', JSON.stringify({
                         name: randomGame.name,
-                        url: `https://html5.gamedistribution.com/${randomGame.id}/`
+                        url: constructGameUrl(randomGame.id, randomGame.name)
                     }));
                     window.location.href = 'game-frame.html';
                 }
