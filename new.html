@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameClub - Online Games</title>
+    <meta name="description" content="Discover the newest online games at GameClub. Fresh and exciting games added daily, featuring the latest in action, adventure, puzzle, and more.">
+    <meta name="keywords" content="new games, latest games, fresh games, recently added games, new online games, latest releases, new gaming titles">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="New Games - Latest Additions to GameClub">
+    <meta property="og:description" content="Check out our newest games! Fresh titles added daily for endless gaming entertainment.">
+    <meta property="og:image" content="path-to-your-logo.png">
+    <meta property="og:url" content="https://yourdomain.com/new">
+    <title>New Games | Latest Online Games Added Daily - GameClub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -2982,38 +2989,3 @@
     </script>
 </body>
 </html>
-```
-```javascript
-{{ ... }}
-            <script>
-                // Function to get all games from all pages
-                function getAllGames() {
-                    const allGames = [];
-                    
-                    // Add games from page 1
-                    allGames.push(...getShuffledGamesForPage(1));
-                    
-                    // Add games from page 2
-                    allGames.push(...getShuffledGamesForPage(2));
-                    
-                    // Add games from page 3
-                    allGames.push(...getShuffledGamesForPage(3));
-                    
-                    return allGames;
-                }
-
-                // Function to play random game
-                function playRandomGame() {
-                    const allGames = getAllGames();
-                    const randomGame = allGames[Math.floor(Math.random() * allGames.length)];
-                    localStorage.setItem('currentGame', JSON.stringify({
-                        name: randomGame.name,
-                        url: `https://html5.gamedistribution.com/${randomGame.id}/`
-                    }));
-                    window.location.href = 'game-frame.html';
-                }
-
-                // Add click event to random game button
-                document.querySelector('.random-game-button').onclick = playRandomGame;
-            </script>
-{{ ... }}
