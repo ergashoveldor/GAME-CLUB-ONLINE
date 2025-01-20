@@ -3,8 +3,8 @@
     display: none;
     position: fixed;
     top: 85px;
-    width: 160px;
-    height: 600px;
+    width: 190px;
+    height: 800px;
     background-color: white;
     z-index: 1000;
 }
@@ -19,7 +19,7 @@
     margin-right: 10px;
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1700px) {
     .ad-fixed-left,
     .ad-fixed-right {
         display: block;
