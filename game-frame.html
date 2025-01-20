@@ -706,6 +706,11 @@
             }
         ];
 
+        // Function to construct game URL
+        function constructGameUrl(gameId, gameName) {
+            return `https://html5.gamedistribution.com/${gameId}/?gd_sdk_referrer_url=https://gamedistribution.com/games/${gameName.toLowerCase().replace(/ /g, '-')}`;
+        }
+
         // Get game data from localStorage
         const currentGame = JSON.parse(localStorage.getItem('currentGame'));
         
@@ -727,7 +732,7 @@
             card.href = "#";
             card.className = 'sidebar-card';
             card.innerHTML = `
-                <img src="https://img.gamedistribution.com/${game.id}-512x512.jpg" alt="${game.name}">
+                <img src="https://img.gamedistribution.com/${game.id}-512x384.jpg" alt="${game.name}">
                 <h3>${game.name}</h3>
             `;
             
@@ -735,7 +740,7 @@
                 e.preventDefault();
                 localStorage.setItem('currentGame', JSON.stringify({
                     name: game.name,
-                    url: `https://html5.gamedistribution.com/${game.id}/`
+                    url: constructGameUrl(game.id, game.name)
                 }));
                 window.location.reload();
             });
@@ -752,7 +757,7 @@
                     .sort(() => Math.random() - 0.5)[0]; // Get random game
                 localStorage.setItem('currentGame', JSON.stringify({
                     name: randomGame.name,
-                    url: `https://html5.gamedistribution.com/${randomGame.id}/`
+                    url: constructGameUrl(randomGame.id, randomGame.name)
                 }));
                 window.location.reload();
             });
@@ -842,7 +847,7 @@
         function loadGameByName(gameName) {
             const game = mainGames.find(g => g.name === gameName);
             if (game) {
-                const gameUrl = `https://html5.gamedistribution.com/${game.id}/`;
+                const gameUrl = constructGameUrl(game.id, game.name);
                 const iframe = document.querySelector('#gameFrame');
                 iframe.src = gameUrl;
                 
@@ -852,13 +857,16 @@
                     titleElement.textContent = game.name;
                 }
                 
+                // Store in localStorage
+                localStorage.setItem('currentGame', JSON.stringify({
+                    name: game.name,
+                    url: gameUrl
+                }));
+                
                 // Update URL without reloading
                 const newUrl = new URL(window.location.href);
                 newUrl.searchParams.set('name', game.name);
                 window.history.pushState({}, '', newUrl);
-
-                // Regenerate similar games when a new game is loaded
-                generateGameCards();
             }
         }
 
